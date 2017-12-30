@@ -1,2 +1,20 @@
 # For express's node_modules
 node_modules
+# for vue's code 
+vue-ui/.DS_Store
+vue-ui/node_modules/
+/dist/
+vue-ui/npm-debug.log*
+vue-ui/yarn-debug.log*
+vue-ui/yarn-error.log*
+vue-ui/test/unit/coverage/
+vue-ui/test/e2e/reports/
+vue-ui/selenium-debug.log
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
