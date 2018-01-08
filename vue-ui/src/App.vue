@@ -1,8 +1,15 @@
 <template>
-  <div id="app">
+<el-container id="app">
+  <el-header>
+  </el-header>
+  <el-main>
+      <router-view/>
+  </el-main>
+  <!-- previous implementation <div>
     <img src="./assets/logo.png">
     <router-view/>
-  </div>
+  </div> -->
+</el-container>
 </template>
 
 <script>
@@ -18,6 +25,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
