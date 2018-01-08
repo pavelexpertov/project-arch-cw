@@ -4,6 +4,7 @@ node_modules
 vue-ui/.DS_Store
 vue-ui/node_modules/
 /dist/
+vue-ui/dist/
 vue-ui/npm-debug.log*
 vue-ui/yarn-debug.log*
 vue-ui/yarn-error.log*
