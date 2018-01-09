@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import './element-ui/index'
-import './resource/index'
+import './element-ui'
+import httpConfig from './resource'
 
 Vue.config.productionTip = false
 
@@ -12,9 +12,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  http: {
-    root: '/'
-  },
+  http: httpConfig,
   template: '<App/>',
   components: { App }
 })
