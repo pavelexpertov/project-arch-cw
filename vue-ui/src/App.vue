@@ -4,6 +4,7 @@
   </el-header>
   <el-main>
       <router-view/>
+      <test></test>
   </el-main>
   <!-- previous implementation <div>
     <img src="./assets/logo.png">
@@ -13,8 +14,13 @@
 </template>
 
 <script>
+import Test from './components/Test'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    test: Test
+  }
 }
 </script>
 
