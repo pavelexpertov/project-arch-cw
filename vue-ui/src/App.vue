@@ -1,10 +1,11 @@
 <template>
 <el-container id="app">
   <el-header>
+    <header-bar></header-bar>
   </el-header>
   <el-main>
       <router-view/>
-      <test></test>
+      <!-- <test></test> -->
   </el-main>
   <!-- previous implementation <div>
     <img src="./assets/logo.png">
@@ -15,11 +16,13 @@
 
 <script>
 import Test from './components/Test'
+import HeaderBar from './components/HeaderBar'
 
 export default {
   name: 'app',
   components: {
-    test: Test
+    test: Test,
+    headerBar: HeaderBar
   }
 }
 </script>
