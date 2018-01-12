@@ -1,3 +1,5 @@
+# For mongod's data folder
+data
 # For express's node_modules
 node_modules
 # for vue's code 
