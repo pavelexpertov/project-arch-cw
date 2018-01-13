@@ -1,0 +1,18 @@
+db.createCollection("todo_lists", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["project_id", "todo_list"],
+            properties: {
+                project_id: {
+                    bsonType: "objectId",
+                    description: "must be a objectId for the project_id"
+                },
+                todo_list: {
+                    bsonType: "array",
+                    description: "Must be an array"
+                }
+            }
+        }
+    }
+})

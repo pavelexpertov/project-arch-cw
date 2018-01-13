@@ -1,0 +1,18 @@
+db.createCollection("userswithrights_list", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["owner_id"],
+            properties: {
+                owner_id: {
+                    bsonType: "objectId",
+                    description: "must be a objectId for the owner_id"
+                },
+                users_list: {
+                    bsonType: "array",
+                    description: "Must be an array"
+                }
+            }
+        }
+    }
+})

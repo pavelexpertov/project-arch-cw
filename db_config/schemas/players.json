@@ -1,0 +1,22 @@
+db.createCollection("players", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["name", "role", "status"],
+            properties: {
+                name: {
+                    bsonType: "string",
+                    description: "must be a string for the name"
+                },
+                role: {
+                    bsonType: "string",
+                    description: "must be a string for the role"
+                },
+                status: {
+                    bsonType: "string",
+                    description: "must be a string for the status"
+                }
+            }
+        }
+    }
+})

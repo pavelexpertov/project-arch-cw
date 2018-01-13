@@ -2,25 +2,29 @@
 details can be found here for reference: https://docs.mongodb.com/manual/core/schema-validation/
 */
 
-{
-    bsonType: "object",
-    required: ["fullname", "job_role", "username", "password"],
-    properties: {
-        fullname: {
-           bsonType: "string",
-           description: "must be a string for the username"
-       },
-       job_role: {
-           enum: ["manager", "trainer", "sport_technician"],
-           description: "Must be either manager, trainer or sport_technician"
-       },
-       username: {
-           bsonType: "string",
-           description: "username must be a string"
-       },
-       password: {
-           bsonType: "string",
-           description: "password must be a string"
-       }
+db.createCollection("users", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["fullname", "job_role", "username", "password"],
+            properties: {
+                fullname: {
+                    bsonType: "string",
+                    description: "must be a string for the username"
+                },
+                job_role: {
+                    enum: ["manager", "trainer", "sport_technician"],
+                    description: "Must be either manager, trainer or sport_technician"
+                },
+                username: {
+                    bsonType: "string",
+                    description: "username must be a string"
+                },
+                password: {
+                    bsonType: "string",
+                    description: "password must be a string"
+                }
+            }
+        }
     }
-}
+})

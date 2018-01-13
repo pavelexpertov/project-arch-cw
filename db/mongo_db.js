@@ -19,4 +19,14 @@ function getConnectedMongoClientQ(){
     });
 }
 
+/*Generate new objectid if an argument wasn't passed.
+Otherwise, use the argument to generate new objectId*/
+function generateObject(id = ''){
+    if(id)
+        return mongodb.ObjectID(id);
+    else
+        return mongodb.ObjectID();
+}
+
 exports.getConnectedMongoClientQ = getConnectedMongoClientQ;
+exports.generateObject = generateObject;

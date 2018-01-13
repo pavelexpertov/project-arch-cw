@@ -1,0 +1,18 @@
+db.createCollection("players_list", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["project_id", "players_list"],
+            properties: {
+                project_id: {
+                    bsonType: "objectId",
+                    description: "must be a objectId for the project_id"
+                },
+                players_list: {
+                    bsonType: "array",
+                    description: "Must be an array"
+                }
+            }
+        }
+    }
+})
