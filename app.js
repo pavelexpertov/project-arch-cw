@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var test = require('./routes/test');
+var user_auth = require('./routes/user_auth');
 
 var app = express();
 
@@ -22,12 +23,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-//Add path for serving Vue application 
+//Add path for serving Vue application
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/', test);
+app.use('/', user_auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
