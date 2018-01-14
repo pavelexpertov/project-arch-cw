@@ -3,10 +3,11 @@ var mongodb = require('./mongo_db');
 var assert = require('assert');
 const main_collection_name = 'projects';
 
-Q.longStackSupport = true;
+//Q.longStackSupport = true;
 
 /*Function that posts new project to the database as well as
-creating other documents that are relevant to it*/
+creating other documents that are relevant to it.
+On successful operation returns id of the project*/
 function insertNewProjectQ(user_id, project_title, main_description, opposition_team, match_start_date, trip_start_date){
     let that_client;
     let project_model = {
@@ -61,7 +62,7 @@ function insertNewProjectQ(user_id, project_title, main_description, opposition_
             return collection.insertOne(project_model);
         })
         .then(result => {
-            resolve(project_model._id.valueOf());
+            resolve({id: project_model._id.valueOf()});
         })
         .catch(err => {
             if(err.code === 121) err.code = 500;
@@ -72,4 +73,27 @@ function insertNewProjectQ(user_id, project_title, main_description, opposition_
     });
 }
 
+function getProjectByProjectIdQ(project_id)
+{
+    let that_client;
+    project_id = mongodb.generateObject(project_id);
+    return Q.Promise((resolve, reject) => {
+        mongodb.getConnectedMongoClientQ()
+        .then(client => {
+            that_client = client;
+            let collection = client.collection(main_collection_name);
+            let search_query = {_id: project_id};
+            return collection.findOne(search_query);
+        })
+        .then(resultDoc => {
+            if(resultDoc === null) reject({code: 404, message: "Project wasn't found by the id of " + project_id.str});
+            resolve(resultDoc);
+        })
+        .catch(err => reject(err))
+        .finally(() => that_client.close())
+        .done();
+    });
+}
+
 exports.insertNewProjectQ = insertNewProjectQ;
+exports.getProjectByProjectIdQ = getProjectByProjectIdQ;

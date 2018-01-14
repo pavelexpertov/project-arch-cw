@@ -9,6 +9,11 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var test = require('./routes/test');
 var user_auth = require('./routes/user_auth');
+var projects = require('./routes/projects');
+var users = require('./routes/users');
+var players = require('./routes/players');
+var to_do_list = require('./routes/to_do_list');
+var users_list = require('./routes/users_list');
 
 var app = express();
 
@@ -27,9 +32,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/', index);
-app.use('/users', users);
+//app.use('/users', users);
 app.use('/', test);
 app.use('/', user_auth);
+app.use('/', projects);
+app.use('/', users);
+app.use('/', players);
+app.use('/', to_do_list);
+app.use('/', users_list);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
