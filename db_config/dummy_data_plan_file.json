@@ -1,0 +1,156 @@
+/*The main user*/
+{
+    fullname: "Pavel Mishkovich",
+    username: "pav",
+    job_role: "manager",
+    password: "pav"
+}
+
+/*Secondary user*/
+{
+    fullname: "Oleg Mishkovich",
+    username: "oleg",
+    job_role: "manager",
+    password: "oleg"
+}
+
+/*Third user*/
+{
+    fullname: "Valoda Rodriguez",
+    username: "vova",
+    job_role: "trainer",
+    password: "vova"
+}
+
+/*The project that the main user will have*/
+{
+    user_id: ObjectId("id of the main user"),
+    todo_list_id: ObjectId("id"),
+    players_list_id: ObjectId("id"),
+    userswithrights_list_id: ObjectId("id"),
+    opposition_team: "arsenal",
+    project_title: "going to arsenal",
+    main_description: "description here",
+    match_start_date: "2016-02-18",
+    trip_start_date: "2016-02-14"
+}
+
+/*The second project that the main user will have*/
+{
+    user_id: ObjectId("id of the main user"),
+    todo_list_id: ObjectId("id"),
+    players_list_id: ObjectId("id"),
+    userswithrights_list_id: ObjectId("id"),
+    opposition_team: "portsmouth",
+    project_title: "going away for playing against portsmouth team",
+    main_description: "so we are going to portsmouth.",
+    match_start_date: "2018-03-18",
+    trip_start_date: "2018-03-14"
+}
+
+/*the project that the secondary user will have*/
+{
+    user_id: ObjectId("id of the secondary user"),
+    todo_list_id: ObjectId("id"),
+    players_list_id: ObjectId("id"),
+    userswithrights_list_id: ObjectId("id"),
+    opposition_team: "chelsea",
+    project_title: "going away for chelsea",
+    main_description: "blah blah blah",
+    match_start_date: "2018-07-22",
+    trip_start_date: "2018-07-16"
+}
+
+/*for the main users' project's userswithrights_list, secondary will have
+read access whereas the third will have write one*/
+{
+    owner_id: ObjectId("id of the project that owns it (i.e. the one that's created by main user)"),
+    users_list: [
+        {
+            user_id: ObjectId("id of the secondary user"),
+            rights: "read_only"
+        },
+        {
+            user_id: ObjectId("id of the third user"),
+            rights: "write"
+        }
+    ]
+}
+
+/*for the secondary users' project's userswithrights_list, main user will have
+read access whereas the third will have write one*/
+{
+    owner_id: ObjectId("id of the project that owns it (i.e. the one that's created by second user)"),
+    users_list: [
+        {
+            user_id: ObjectId("id of the main user"),
+            rights: "read_only"
+        },
+        {
+            user_id: ObjectId("id of the third user"),
+            rights: "write"
+        }
+    ]
+}
+
+/*for the main user who has tasks to complete*/
+{
+    project_id: ObjectId("id of the project that owns it (i.e. the one that's created by main user"),
+    todo_list: [
+        {
+            title: "Bring some balls",
+            completed: false,
+            date: "2016-02-08"
+        },
+        {
+            title: "Verify visa for one player",
+            completed: true,
+            date: "2016-01-10"
+        }
+    ]
+}
+
+/*main player documents */
+{
+    name: "Peter Brenen",
+    role: "Defender",
+    status: "Normal"
+}
+{
+    name: "Alex Volkovich",
+    role: "Striker",
+    status: "Normal"
+}
+{
+    name: "Sergey Varshavin",
+    role: "Striker",
+    status: "Normal"
+}
+{
+    name: "Bruce Wayne",
+    role: "Midfielder",
+    status: "Normal"
+}
+{
+    name: "Alexander Kharitonov",
+    role: "Defender",
+    status: "Injured"
+}
+{
+    name: "Anton Kaparovich",
+    role: "Defender",
+    status: "Normal"
+}
+
+/*the player list for the main user's project*/
+{
+    project_id: ObjectId("id of the project that owns it (i.e. the one that's created by main user"),
+    players_list: [
+        {
+            player_id: ObjectId("id for Bruce Wayne")
+        },
+        {
+            player_id: ObjectId("id for Alexander Kharitonov")
+        }
+    ]
+}
