@@ -28,5 +28,15 @@ function generateObject(id = ''){
         return mongodb.ObjectID();
 }
 
+/*Generate ObjectId from string that contains ObjectId in it
+It's usually used with the client to get queries from the db.*/
+function generateObjectFromString(stringValue){
+    let start = stringValue.indexOf("'");
+    let end = stringValue.lastIndexOf("'");
+    let id = stringValue.slice(start + 1, end);
+    return generateObject(id);
+}
+
 exports.getConnectedMongoClientQ = getConnectedMongoClientQ;
 exports.generateObject = generateObject;
+exports.generateObjectFromString = generateObjectFromString;

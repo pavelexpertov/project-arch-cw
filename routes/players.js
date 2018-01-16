@@ -9,7 +9,7 @@ router.get('/players/:name', (req, res) => {
    players_ops.findPlayersByNameQ(name)
    .then(result => {
        res.json(result);
-   }) 
+   })
    .catch(err => handleError(err, res));
 });
 
@@ -17,7 +17,7 @@ router.get('/players/:name', (req, res) => {
 //based on project id.
 router.get('/players_list/:projectid', (req, res) => {
     let project_id = req.param('projectid');
-    players_ops.findPlayerListByProjectIdQ(project_id)
+    players_ops.findPlayerListByPlayersListIdQ(project_id)
     .then(result => {
         res.json(result);
     })
@@ -26,7 +26,7 @@ router.get('/players_list/:projectid', (req, res) => {
 
 //Updates a players list based on provided list id
 router.put('/players_list/:listid', (req, res) => {
-   let list_id = req.param('listid'); 
+   let list_id = req.param('listid');
    let list_to_update = req.body.list;
    players_ops.updatePlayerListByPlayerListIdQ(list_id, list_to_update)
    .then(result => {

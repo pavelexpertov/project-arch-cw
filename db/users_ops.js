@@ -53,7 +53,7 @@ function findUsersByName(name){
             that_client = client;
             //Find the users based on the search query
             let collection = db.collection(collection_name);
-            let search_query = {fullname: {$regex: '/' + name + '/', $options: 'i'}};
+            let search_query = {fullname: {$regex: name, $options: 'i'}};
             return collection.find(search_query).toArray();
         })
         .then(resultArray => {

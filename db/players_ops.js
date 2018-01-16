@@ -12,13 +12,13 @@ function findPlayersByNameQ(name){
         mongodb.getConnectedMongoClientQ()
         .then(client => {
             that_client = client;
-            let collection = db.collection(players_collection_name);
-            let search_query = {name: {$regex: '/' + name + '/', $options: 'i'}};
+            let collection = client.collection(players_collection_name);
+            let search_query = {name: {$regex: name, $options: 'i'}};
             return collection.find(search_query).toArray();
         })
         .then(resultArray => {
             if(resultArray === null){
-                console.log("Looks like an empty array \n" + resultArray)
+                console.log("Looks like an empty array \n" + resultArray);
                 resultArray = [];
             }
             resolve({list: resultArray});
@@ -29,8 +29,8 @@ function findPlayersByNameQ(name){
     });
 }
 
-/*Return a list of the players based on project id*/
-function findPlayerListByProjectIdQ(project_id){
+/*Return a list of the players based on list id*/
+function findPlayerListByPlayersListIdQ(project_id){
     let that_client;
     let result_doc;
     project_id = mongodb.generateObject(project_id);
@@ -40,14 +40,19 @@ function findPlayerListByProjectIdQ(project_id){
             that_client = client;
             //Get a list of ids from the document
             let collection = client.collection(players_list_collection_name);
-            let search_query = {project_id: project_id};
+            let search_query = {_id: project_id};
             return collection.findOne(search_query);
         })
         .then(resultDoc => {
-            if(resultDoc === null) reject({code: 404, message: "The player list is not found by this id of " + project_id.str});
+            if(resultDoc === null) reject({code: 404, message: "The player list is not found by this id of " + project_id.valueOf()});
             result_doc = resultDoc;
             //Get a list of players with full details
             let player_id_list = resultDoc.players_list;
+            //Convert a list of objects into the list of objectIds
+            let length = player_id_list.length;
+            for(var index = 0; index < length; ++index){
+                player_id_list[index] = mongodb.generateObjectFromString(player_id_list[index].user_id);
+            }
             let collection = that_client.collection(players_collection_name);
             let search_query = {_id: {$in: player_id_list}};
             return collection.find(search_query).toArray();
@@ -91,5 +96,5 @@ function updatePlayerListByPlayerListIdQ(players_list_id, players_list){
 }
 
 module.exports.findPlayersByNameQ = findPlayersByNameQ;
-module.exports.findPlayerListByProjectIdQ = findPlayerListByProjectIdQ;
+module.exports.findPlayerListByPlayersListIdQ = findPlayerListByPlayersListIdQ;
 module.exports.updatePlayerListByPlayerListIdQ = updatePlayerListByPlayerListIdQ;
