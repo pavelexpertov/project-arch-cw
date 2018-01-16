@@ -25,7 +25,7 @@ router.post('/projects', (req, res) => {
 
 /*Get the project's document based on project id*/
 router.get('/projects/:projectid', (req, res) => {
-    let project_id = req.param(project_id);
+    let project_id = req.param('projectid');
     projects_ops.getProjectByProjectIdQ(project_id)
     .then(result => {
         res.json(result);

@@ -1,3 +1,5 @@
+"use strict"
+
 var Q = require('q');
 var mongodb = require('./mongo_db');
 var assert = require('assert');
@@ -59,12 +61,14 @@ function getUserRightByUserIdAndUsersListIdQ(list_id, user_id){
         })
         .then(resultDoc => {
             if(resultDoc === null) reject({code: 404, message: "Couldn't find the users list"});
+            let list = resultDoc.users_list;
             let index = 0;
-            let len = resultDoc.length;
+            let len = list.length;
             for(;index < len; ++index){
-               let doc = resultDoc[index];
-               if(doc.user_id.str === user_id.str)
-                resolve({right: doc.rights}); 
+               let doc = list[index];
+               let objId = doc.user_id;
+               if(objId.equals(user_id))
+                resolve({rights: doc.rights});
             }
             reject({code: 404, message: "Couldn't find the user in the users list"});
         })

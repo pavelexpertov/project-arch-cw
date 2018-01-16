@@ -1,3 +1,4 @@
+"use strict"
 var Q = require('q');
 var mongodb = require('./mongo_db');
 var assert = require('assert');
@@ -26,9 +27,23 @@ function getOwnAndSharedProjects(user_id){
             return that_client;
         })
         .then(client => {
-            //Getting projects that the user has been shared with
+            //Getting a list of users lists where the user_id is contained
+            //so as to find which projects are shared with the user.
             let collection = client.collection('userswithrights_list');
-            let search_query = {users_list: user_id};
+            //let search_query = {users_list: user_id};
+            let search_query = {users_list: {$elemMatch: {user_id: user_id}}};
+            return collection.find(search_query).toArray();
+        })
+        .then(users_listArray => {
+            //Convert a list of documents into an array of objectIds
+            //for collecting the documents.
+            let objIdArray = [];
+            let length = users_listArray.length;
+            for(var index = 0; index < length; ++index){
+                objIdArray.push(users_listArray[index].owner_id);
+            }
+            let collection = that_client.collection('projects');
+            let search_query = {_id: {$in: objIdArray}};
             return collection.find(search_query).toArray();
         })
         .then(resultArray => {
@@ -52,7 +67,7 @@ function findUsersByName(name){
         .then(client => {
             that_client = client;
             //Find the users based on the search query
-            let collection = db.collection(collection_name);
+            let collection = client.collection(collection_name);
             let search_query = {fullname: {$regex: name, $options: 'i'}};
             return collection.find(search_query).toArray();
         })
