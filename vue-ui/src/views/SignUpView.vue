@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: 'SignUpView',
   data: function () {
     return {
       form: {
