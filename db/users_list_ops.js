@@ -68,7 +68,7 @@ function getUserRightByUserIdAndUsersListIdQ(list_id, user_id){
                let doc = list[index];
                let objId = doc.user_id;
                if(objId.equals(user_id))
-                resolve({rights: doc.rights});
+                resolve({rights: doc.edit_rights});
             }
             reject({code: 404, message: "Couldn't find the user in the users list"});
         })

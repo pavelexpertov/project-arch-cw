@@ -68,11 +68,11 @@ read access whereas the third will have write one*/
     users_list: [
         {
             user_id: ObjectId("id of the secondary user"),
-            rights: "read_only"
+            edit_rights: {player_list: true, todo_list: false}
         },
         {
             user_id: ObjectId("id of the third user"),
-            rights: "write"
+            edit_rights: {player_list: true, todo_list: false}
         }
     ]
 }
@@ -84,11 +84,11 @@ read access whereas the third will have write one*/
     users_list: [
         {
             user_id: ObjectId("id of the main user"),
-            rights: "read_only"
+            edit_rights: {player_list: true, todo_list: false}
         },
         {
             user_id: ObjectId("id of the third user"),
-            rights: "write"
+            edit_rights: {player_list: false, todo_list: true}
         }
     ]
 }
