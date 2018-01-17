@@ -68,16 +68,14 @@ export default {
                     break;
                 }
             }
-            if(notDuplicateItem)
+            if(notDuplicateItem){
                 this.item_list.push(selected_item)
-            /*console.log(this.item_list)*/
+                this.updateItemList()
+            }
         },
         deleteItem: function(selected_item){
             console.log("something got delted", selected_item);
-            console.log(this.item_list[0] === selected_item);
-            console.log(this.item_list)
             let new_array = this.item_list.filter(item => item !== selected_item);
-            console.log(new_array)
             this.item_list = new_array
             this.updateItemList()
         },
@@ -85,9 +83,16 @@ export default {
             console.log("something got updated", selected_item);
         },
         updateItemList: function(){
+            //generating formatted array
+            let formatted_array = [];
+            for(var index = 0; index < this.item_list.length; ++index)
+                formatted_array.push({_id: this.item_list[index]._id});
             let endpoint_name = this.endpointName + "_list/" + this.listId
             console.log(endpoint_name);
-            //this.$http.get()
+            console.log(formatted_array)
+            this.$http.put(endpoint_name, formatted_array)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
         }
     },
     mounted: function(){

@@ -27,7 +27,7 @@ router.get('/players_list/:projectid', (req, res) => {
 //Updates a players list based on provided list id
 router.put('/players_list/:listid', (req, res) => {
    let list_id = req.param('listid');
-   let list_to_update = req.body.list;
+   let list_to_update = req.body;
    players_ops.updatePlayerListByPlayerListIdQ(list_id, list_to_update)
    .then(result => {
         res.json(result);

@@ -31,12 +31,13 @@ function getOwnAndSharedProjects(user_id){
             //so as to find which projects are shared with the user.
             let collection = client.collection('userswithrights_list');
             //let search_query = {users_list: user_id};
-            let search_query = {users_list: {$elemMatch: {user_id: user_id}}};
+            let search_query = {users_list: {$elemMatch: {_id: user_id}}};
             return collection.find(search_query).toArray();
         })
         .then(users_listArray => {
             //Convert a list of documents into an array of objectIds
             //for collecting the documents.
+            console.log(users_listArray);
             let objIdArray = [];
             let length = users_listArray.length;
             for(var index = 0; index < length; ++index){
