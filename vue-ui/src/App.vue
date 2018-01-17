@@ -5,24 +5,22 @@
   </el-header>
   <el-main>
       <router-view/>
-      <!-- <test></test> -->
+      <item-list :endpoint_name="'players'" :list_id="'5a5d9efe65cf041ad72321ea'"></item-list>
   </el-main>
-  <!-- previous implementation <div>
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div> -->
 </el-container>
 </template>
 
 <script>
-import Test from './components/Test'
+/* import Test from './test_files/Test'
+import TestTextBox from './test_files/TestTextBox' */
 import HeaderBar from './components/HeaderBar'
+import ItemList from './components/ItemList'
 
 export default {
   name: 'app',
   components: {
-    test: Test,
-    headerBar: HeaderBar
+    headerBar: HeaderBar,
+    itemList: ItemList
   }
 }
 </script>
