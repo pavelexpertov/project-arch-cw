@@ -11,52 +11,52 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
-    name: "TextBox",
-    props: {
-        endpoint_name: {
-            type: String,
-            required: true
-        }
-    },
-    data: function() {
-        return {
-            textBoxInput: '',
-            endpointName: this.endpoint_name
-        }
-    },
-    methods: {
-        performSearchQuery: function(queryString, callback_function){
-            console.log("search query is", queryString)
-            this.$http.get(this.endpointName + '/' + queryString).then(response=>{
-                let returned_list = response.body.list || response.body;
-                //console.log(returned_list);
-                var generated_array = [];
-                for(var index = 0; index < returned_list.length; ++index){
-                    let doc = returned_list[index];
-                    generated_array.push({value: doc.name || doc.fullname, selected_item: doc});
-                }
-                //console.log("generated array", generated_array);
-                callback_function(generated_array);
-            })
-            .catch(err => {
-                console.log(err)
-                callback_function([]);
-            });
-        },
-        handleSelect: function(selected_item){
-            //If it's users endpoint, insert default edit rights data
-            if(this.endpointName === 'users')
-                selected_item.selected_item.edit_rights = {
-                    "players_list" : false,
-                    "todo_list" : false
-                }
-            console.log(selected_item)
-            this.$emit('selectItem', selected_item)
-            this.textBoxInput = ''
-        }
+  name: 'TextBox',
+  props: {
+    endpoint_name: {
+      type: String,
+      required: true
     }
+  },
+  data: function () {
+    return {
+      textBoxInput: '',
+      endpointName: this.endpoint_name
+    }
+  },
+  methods: {
+    performSearchQuery: function (queryString, callbackFunction) {
+      console.log('search query is', queryString)
+      this.$http.get(this.endpointName + '/' + queryString).then(response => {
+        let returnedList = response.body.list || response.body
+                // console.log(returnedList);
+        var generatedArray = []
+        for (var index = 0; index < returnedList.length; ++index) {
+          let doc = returnedList[index]
+          generatedArray.push({value: doc.name || doc.fullname, selected_item: doc})
+        }
+                // console.log("generated array", generatedArray);
+        callbackFunction(generatedArray)
+      })
+      .catch(err => {
+        console.log(err)
+        callbackFunction([])
+      })
+    },
+    handleSelect: function (selectedItem) {
+            // If it's users endpoint, insert default edit rights data
+      if (this.endpointName === 'users') {
+        selectedItem.selected_item.edit_rights = {
+          'players_list': false,
+          'todo_list': false
+        }
+      }
+      console.log(selectedItem)
+      this.$emit('selectItem', selectedItem)
+      this.textBoxInput = ''
+    }
+  }
 }
 </script>
 

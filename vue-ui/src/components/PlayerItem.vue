@@ -6,25 +6,24 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
-    name: "PlayerItem",
-    props: {
-        player_obj: {
-            type: Object
-        }
-    },
-    data: function(){
-        return {
-            playerObj: this.player_obj,
-            name: this.player_obj.name
-        }
-    },
-    methods: {
-        deletePlayer: function(){
-            this.$emit('deleteItem', this.playerObj)
-        }
+  name: 'PlayerItem',
+  props: {
+    player_obj: {
+      type: Object
     }
+  },
+  data: function () {
+    return {
+      playerObj: this.player_obj,
+      name: this.player_obj.name
+    }
+  },
+  methods: {
+    deletePlayer: function () {
+      this.$emit('deleteItem', this.playerObj)
+    }
+  }
 }
 </script>
 
