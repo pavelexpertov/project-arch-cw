@@ -14,7 +14,8 @@ router.get('/users_list/:list_id', (req, res) => {
 /*updates users list*/
 router.put('/users_list/:list_id', (req, res) => {
     let list_id = req.param('list_id');
-    user_list_ops.updateUsersListByListIdQ(list_id)
+    let list = req.body;
+    user_list_ops.updateUsersListByListIdQ(list_id, list)
     .then(result => res.json(result))
     .catch(err => handleError(err, res));
 });
