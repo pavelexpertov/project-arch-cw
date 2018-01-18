@@ -44,6 +44,19 @@ export default {
             project_id: ''
         }
     },
+    created: function(){
+        let project_id = this.$route.params.project_id
+        if(project_id){
+            this.$http.get("projects/" + project_id)
+            .then(response => {
+                //pr is the project json
+                let pr = response.body
+                this.project_id = pr._id
+                this.form = pr
+            })
+            .catch(err => console.log(err))
+        }
+    },
     computed: {
         btnSaveNameText: function(){
             return this.project_id?'Save' : 'Add'

@@ -34,6 +34,7 @@ router.get('/projects/:projectid', (req, res) => {
 });
 
 router.put('/projects/:projectid', (req, res) => {
+    console.log(req.body)
     res.send("implemnt me");
 });
 

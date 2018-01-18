@@ -53,7 +53,7 @@ function findPlayerListByPlayersListIdQ(project_id){
             for(var index = 0; index < length; ++index){
                 player_id_list[index] = player_id_list[index]._id;
             }
-            console.log(player_id_list);
+            //console.log(player_id_list);
             let collection = that_client.collection(players_collection_name);
             let search_query = {_id: {$in: player_id_list}};
             return collection.find(search_query).toArray();
@@ -77,10 +77,10 @@ function findPlayerListByPlayersListIdQ(project_id){
 function updatePlayerListByPlayerListIdQ(players_list_id, players_list){
     let that_client;
     players_list_id = mongodb.generateObject(players_list_id);
-    console.log("before", players_list);
+    //console.log("before", players_list);
     for(var index = 0; index < players_list.length; ++index)
         players_list[index]._id = mongodb.generateObject(players_list[index]._id)
-    console.log("after",players_list);
+    //console.log("after",players_list);
     return Q.Promise((resolve, reject) => {
         mongodb.getConnectedMongoClientQ()
         .then(client => {

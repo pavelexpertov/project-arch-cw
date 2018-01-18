@@ -1,5 +1,11 @@
 <template>
     <div>
+        <router-link
+        :to="'/editproject/' + project._id"
+        v-if="isUserProjectOwner"
+        >
+            <el-button>Edit</el-button>
+        </router-link>
         <div>
             <h1> Here's the view of the project</h1>
             <h1> {{project._id}}</h1>
@@ -41,6 +47,11 @@ export default {
   components: {
     toDoList: ToDoList,
     itemList: ItemList
+  },
+  computed: {
+    isUserProjectOwner: function () {
+      return this.project.user_id === this.$store.state.user_id
+    }
   }
 }
 </script>
