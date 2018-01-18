@@ -3,7 +3,7 @@
     <template v-if="isSignedIn">
       <el-menu :default-active="setActiveIndex" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">
-          <el-button type="primary" icon="el-icon-circle-plus">New Project</el-button>
+          <el-button type="primary" icon="el-icon-circle-plus">New Plan</el-button>
         </el-menu-item>
         <router-link to="/projects">
             <el-menu-item index="2">
@@ -11,13 +11,10 @@
             </el-menu-item>
         </router-link>
         <el-menu-item index="3">
-          Shared Projects
-        </el-menu-item>
-        <el-menu-item index="4">
           Search
         </el-menu-item>
         <router-link to="/logout">
-            <el-menu-item index="5">
+            <el-menu-item index="4">
               Log Out
             </el-menu-item>
         </router-link>
@@ -33,26 +30,25 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
-  name: "HeaderBar",
-  data: function() {
+  name: 'HeaderBar',
+  data: function () {
     return {
       activeIndex: '1'
-    };
+    }
   },
   methods: {
-    handleSelect: function(key, keyPath) {
-      console.log("Got the following: ", key, keyPath);
+    handleSelect: function (key, keyPath) {
+      console.log('Got the following: ', key, keyPath)
     }
   },
   computed: {
-      isSignedIn: function(){
-          return this.$store.state.isSignedIn
-      },
-      setActiveIndex: function(){
-          return this.$store.state.isSignedIn? '5' : '1'
-      }
+    isSignedIn: function () {
+      return this.$store.state.isSignedIn
+    },
+    setActiveIndex: function () {
+      return this.$store.state.isSignedIn ? '2' : '1'
+    }
   }
 }
 </script>

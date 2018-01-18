@@ -20,22 +20,21 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
   name: 'ProjectsView',
-  data: function(){
-      return {
-        ownProjects: [],
-        sharedProjects: []
+  data: function () {
+    return {
+      ownProjects: [],
+      sharedProjects: []
     }
   },
   mounted: function () {
     let userId = this.$store.state.user_id
-    this.$http.get('users/' + userId + '/projects/' )
+    this.$http.get('users/' + userId + '/projects/')
     .then(response => {
-        console.log(response)
-        this.ownProjects = response.body.own_projects
-        this.sharedProjects = response.body.shared_projects
+      console.log(response)
+      this.ownProjects = response.body.own_projects
+      this.sharedProjects = response.body.shared_projects
     })
     .catch(err => console.log(err))
   }

@@ -13,35 +13,34 @@
 </template>
 
 <script>
-/* eslint-disable */
-import ToDoList from "@/components/ToDoList"
-import ItemList from "@/components/ItemList"
+import ToDoList from '@/components/ToDoList'
+import ItemList from '@/components/ItemList'
 
 export default {
   name: 'ProjectView',
-  data: function(){
-      return {
-        project: '',
-        playersListId: '',
-        todoListId: '',
-        endpoint: 'players'
-      }
+  data: function () {
+    return {
+      project: '',
+      playersListId: '',
+      todoListId: '',
+      endpoint: 'players'
+    }
   },
   mounted: function () {
-      let projectId = this.$route.params.project_id
-      this.$http.get('projects/' + projectId)
+    let projectId = this.$route.params.project_id
+    this.$http.get('projects/' + projectId)
       .then(response => {
-          console.log(response)
-          let project = response.body
-          this.project = project
-          this.playersListId = project.players_list_id
-          this.todoListId = project.todo_list_id
+        console.log(response)
+        let project = response.body
+        this.project = project
+        this.playersListId = project.players_list_id
+        this.todoListId = project.todo_list_id
       })
       .catch(err => console.log(err))
   },
   components: {
-      toDoList: ToDoList,
-      itemList: ItemList
+    toDoList: ToDoList,
+    itemList: ItemList
   }
 }
 </script>
