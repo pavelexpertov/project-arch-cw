@@ -5,7 +5,6 @@
   </el-header>
   <el-main>
       <router-view/>
-      <item-list :endpoint_name="'players'" :list_id="'5a5d9efe65cf041ad72321ea'"></item-list>
   </el-main>
 </el-container>
 </template>
@@ -14,13 +13,11 @@
 /* import Test from './test_files/Test'
 import TestTextBox from './test_files/TestTextBox' */
 import HeaderBar from './components/HeaderBar'
-import ItemList from './components/ItemList'
 
 export default {
   name: 'app',
   components: {
-    headerBar: HeaderBar,
-    itemList: ItemList
+    headerBar: HeaderBar
   }
 }
 </script>

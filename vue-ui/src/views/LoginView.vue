@@ -13,6 +13,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'LoginView',
   data: function () {
@@ -26,6 +27,24 @@ export default {
   methods: {
     onSubmit: function () {
       console.log('submit for login!' + ' ' + this.form.username + ' ' + this.form.password)
+      let creds = {username: this.form.username, password: this.form.password}
+      this.$http.post("login", creds)
+      .then(response => {
+          let json = response.body
+          if(json.ok === true){
+              this.$store.commit('setUsername', creds.username)
+              this.$store.commit('setPassword', creds.password)
+              this.$store.commit('setUserId', json.id)
+              this.$store.commit('setIsSignedInToTrue')
+          }
+      })
+      .catch(err => {
+          console.log(err)
+          this.$notify.error({
+              title: 'From Server',
+              message: err.body
+          })
+      })
     }
   }
 }

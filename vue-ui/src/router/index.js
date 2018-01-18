@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/views/HelloWorldView'
+// import HelloWorld from '@/views/HelloWorldView'
 import Login from '@/views/LoginView'
 import SignUp from '@/views/SignUpView'
 
@@ -10,8 +10,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'HomePageLogin',
+      component: Login
     },
     {
       path: '/login',

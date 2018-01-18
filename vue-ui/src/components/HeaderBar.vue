@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-if="isSignedIn">
-      <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
+      <el-menu :default-active="setActiveIndex" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">
           <el-button type="primary" icon="el-icon-circle-plus">New Project</el-button>
         </el-menu-item>
@@ -20,7 +20,7 @@
       </el-menu>
     </template>
     <template v-else>
-    <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
+    <el-menu :default-active="setActiveIndex" mode="horizontal" @select="handleSelect">
       <router-link to="/login"><el-menu-item index="1">Log In</el-menu-item></router-link>
       <router-link to="/signup"><el-menu-item index="2">Sign Up</el-menu-item></router-link>
     </el-menu>
@@ -34,14 +34,21 @@ export default {
   name: "HeaderBar",
   data: function() {
     return {
-      activeIndex: '1',
-      isSignedIn: false
+      activeIndex: '1'
     };
   },
   methods: {
     handleSelect: function(key, keyPath) {
       console.log("Got the following: ", key, keyPath);
     }
+  },
+  computed: {
+      isSignedIn: function(){
+          return this.$store.state.isSignedIn
+      },
+      setActiveIndex: function(){
+          return this.$store.state.isSignedIn? '2' : '1'
+      }
   }
 }
 </script>
