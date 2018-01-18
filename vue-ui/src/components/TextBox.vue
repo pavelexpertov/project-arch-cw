@@ -46,7 +46,13 @@ export default {
             });
         },
         handleSelect: function(selected_item){
-            //console.log("That's what I selected", selected_item);
+            //If it's users endpoint, insert default edit rights data
+            if(this.endpointName === 'users')
+                selected_item.selected_item.edit_rights = {
+                    "players_list" : false,
+                    "todo_list" : false
+                }
+            console.log(selected_item)
             this.$emit('selectItem', selected_item)
             this.textBoxInput = ''
         }

@@ -85,8 +85,16 @@ export default {
         updateItemList: function(){
             //generating formatted array
             let formatted_array = [];
-            for(var index = 0; index < this.item_list.length; ++index)
-                formatted_array.push({_id: this.item_list[index]._id});
+            if(this.endpointName === "players"){
+                for(var index = 0; index < this.item_list.length; ++index)
+                    formatted_array.push({_id: this.item_list[index]._id});
+                }
+            else{
+                for(var index = 0; index < this.item_list.length; ++index){
+                    let item = this.item_list[index]
+                    formatted_array.push({_id: item._id, edit_rights: item.edit_rights});
+                }
+            }
             let endpoint_name = this.endpointName + "_list/" + this.listId
             console.log(endpoint_name);
             console.log(formatted_array)
