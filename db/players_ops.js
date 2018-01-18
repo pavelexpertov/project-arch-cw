@@ -79,7 +79,7 @@ function updatePlayerListByPlayerListIdQ(players_list_id, players_list){
     players_list_id = mongodb.generateObject(players_list_id);
     console.log("before", players_list);
     for(var index = 0; index < players_list.length; ++index)
-        players_list[index] = {_id: mongodb.generateObject(players_list[index]._id)}
+        players_list[index]._id = mongodb.generateObject(players_list[index]._id)
     console.log("after",players_list);
     return Q.Promise((resolve, reject) => {
         mongodb.getConnectedMongoClientQ()
