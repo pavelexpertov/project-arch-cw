@@ -5,18 +5,22 @@
         <el-menu-item index="1">
           <el-button type="primary" icon="el-icon-circle-plus">New Project</el-button>
         </el-menu-item>
-        <el-menu-item index="2">
-          My Projects
-        </el-menu-item>
+        <router-link to="/projects">
+            <el-menu-item index="2">
+              My Projects
+            </el-menu-item>
+        </router-link>
         <el-menu-item index="3">
           Shared Projects
         </el-menu-item>
         <el-menu-item index="4">
           Search
         </el-menu-item>
-        <el-menu-item index="5">
-          Log Out
-        </el-menu-item>
+        <router-link to="/logout">
+            <el-menu-item index="5">
+              Log Out
+            </el-menu-item>
+        </router-link>
       </el-menu>
     </template>
     <template v-else>
@@ -47,7 +51,7 @@ export default {
           return this.$store.state.isSignedIn
       },
       setActiveIndex: function(){
-          return this.$store.state.isSignedIn? '2' : '1'
+          return this.$store.state.isSignedIn? '5' : '1'
       }
   }
 }

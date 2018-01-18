@@ -48,10 +48,7 @@ export default {
     return {
       listId: this.list_id,
       endpointName: this.endpoint_name,
-      item_list: [{_id: '234234', fullname: 'pav', name: 'pav'},
-                        {_id: '873632', fullname: 'sasha', name: 'sasha'},
-                        {_id: '9292929', fullname: 'hd', name: 'hd'}
-      ]
+      item_list: []
     }
   },
   methods: {

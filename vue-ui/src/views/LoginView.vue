@@ -36,6 +36,7 @@ export default {
               this.$store.commit('setPassword', creds.password)
               this.$store.commit('setUserId', json.id)
               this.$store.commit('setIsSignedInToTrue')
+              this.$router.push({name: 'Projects'})
           }
       })
       .catch(err => {

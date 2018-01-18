@@ -27,6 +27,12 @@ export default new Vuex.Store({
         },
         setUserId(state, id) {
             state.user_id = id
+        },
+        logout(state){
+            state.user_id = ''
+            state.username = ''
+            state.password = ''
+            state.isSignedIn = false
         }
     },
     computed: Vuex.mapState([
