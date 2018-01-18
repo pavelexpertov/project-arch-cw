@@ -37,14 +37,14 @@ Inserts a new user into the database.
 It returns a boolean of true if the operation was successful.
 Throws an error if it hasn't been successful
 */
-function signUpUserQ(username, password, full_name, job_role){
+function signUpUserQ(username, password, fullname, job_role){
     return Q.Promise((resolve, reject) => {
         let that_client = '';
         mongodb.getConnectedMongoClientQ()
         .then(client => {
             that_client = client;
             user_collection = client.collection(collection_name);
-            let insertObject = {'username': username, 'password': password, 'fullname': full_name, 'job_role': job_role};
+            let insertObject = {'username': username, 'password': password, 'fullname': fullname, 'job_role': job_role};
             user_collection.insertOne(insertObject)
             .then(r => {
                 assert.equal(1, r.insertedCount, "A document for a user signing up inserted failed to submit");

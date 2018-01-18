@@ -22,7 +22,7 @@ router.post('/login', (req, res) => {
 router.post('/signup', (req, res) => {
     let obj = req.body;
     //console.log(obj);
-    let promise = user_db.signUpUserQ(obj.username, obj.password, obj.full_name, obj.job_role);
+    let promise = user_db.signUpUserQ(obj.username, obj.password, obj.fullname, obj.job_role);
     promise.then(result => {
         res.json({ok: true});
     })

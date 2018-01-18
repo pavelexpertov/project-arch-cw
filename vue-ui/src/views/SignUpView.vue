@@ -23,6 +23,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'SignUpView',
   data: function () {
@@ -38,6 +39,26 @@ export default {
   methods: {
     onSubmit: function () {
       console.log('submit for signup!' + ' ' + this.form.username + ' ' + this.form.password)
+      let details = {
+          fullname: this.form.name,
+          job_role: this.form.job_role,
+          username: this.form.username,
+          password: this.form.password,
+      }
+      console.log(details)
+      this.$http.post("signup", details)
+      .then(response => {
+          if(response.body.ok === true){
+              this.$router.push({name: 'Login'})
+          }
+      })
+      .catch(err => {
+          console.log(err)
+          this.$notify.error({
+              title: "From Server",
+              message: err.body
+          })
+      })
     }
   }
 }
