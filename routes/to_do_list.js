@@ -15,7 +15,7 @@ router.get('/todo_list/:todo_list_id', (req, res) => {
 
 router.put('/todo_list/:todo_list_id', (req, res) => {
     let todo_list_id = req.param('todo_list_id');
-    let list = req.body.list;
+    let list = req.body;
     to_do_list_ops.updateToDoListByListIdQ(todo_list_id, list)
     .then(result => {
         res.json(result);
