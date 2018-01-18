@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/views/LoginView'
@@ -5,6 +7,7 @@ import SignUp from '@/views/SignUpView'
 import Projects from '@/views/ProjectsView'
 import Project from '@/views/ProjectView'
 import Logout from '@/views/LogoutView'
+import ProjectForm from '@/views/ProjectFormView'
 
 Vue.use(Router)
 
@@ -39,6 +42,16 @@ export default new Router({
       path: '/logout',
       name: 'Logout',
       component: Logout
+    },
+    {
+      path: '/addproject',
+      name: 'ProjectForm',
+      component: ProjectForm
+  },
+  {
+      path: '/editproject/:project_id',
+      name: 'ProjectEditForm',
+      component: ProjectForm
     }
   ]
 })

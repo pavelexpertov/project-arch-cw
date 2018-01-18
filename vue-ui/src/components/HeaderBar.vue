@@ -2,9 +2,11 @@
   <div>
     <template v-if="isSignedIn">
       <el-menu :default-active="setActiveIndex" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">
-          <el-button type="primary" icon="el-icon-circle-plus">New Plan</el-button>
-        </el-menu-item>
+        <router-link to="/addproject">
+            <el-menu-item index="1">
+              <el-button type="primary" icon="el-icon-circle-plus">New Plan</el-button>
+            </el-menu-item>
+        </router-link>
         <router-link to="/projects">
             <el-menu-item index="2">
               My Projects
