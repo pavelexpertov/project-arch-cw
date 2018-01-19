@@ -9,10 +9,10 @@ var router = express.Router();
 });*/
 
 /*Returns an object that contains two lists:
-one for projects that the user owns 
+one for projects that the user owns
 and the one that the users has been shared with
 */
-router.get('/users/:id/projects', (req, res) => {
+router.get('/:id/projects', (req, res) => {
   let user_id = req.param("id");
   users_ops.getOwnAndSharedProjects(user_id)
   .then(json_result => {
@@ -21,10 +21,10 @@ router.get('/users/:id/projects', (req, res) => {
   .catch(err => handleError(err, res));
 });
 
-/*Returns a json of users that's been 
+/*Returns a json of users that's been
 searched using a query
 */
-router.get('/users/:name', (req, res) => {
+router.get('/:name', (req, res) => {
   let name = req.param('name');
   users_ops.findUsersByName(name)
   .then(resultJson => {

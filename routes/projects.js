@@ -7,7 +7,7 @@ var express = require('express');
 var router = express.Router();
 
 //Create a new project
-router.post('/projects', (req, res) => {
+router.post('/', (req, res) => {
     let jbody = req.body;
     let user_id = jbody.user_id;
     let project_title = jbody.project_title;
@@ -24,7 +24,7 @@ router.post('/projects', (req, res) => {
 
 
 /*Get the project's document based on project id*/
-router.get('/projects/:projectid', (req, res) => {
+router.get('/:projectid', (req, res) => {
     let project_id = req.param('projectid');
     projects_ops.getProjectByProjectIdQ(project_id)
     .then(result => {
@@ -33,7 +33,7 @@ router.get('/projects/:projectid', (req, res) => {
     .catch(err => handleError(err, res));
 });
 
-router.put('/projects/:projectid', (req, res) => {
+router.put('/:projectid', (req, res) => {
     let project_id = req.param('projectid');
     let project = req.body;
     projects_ops.updateProjectByProjectIdQ(project_id, project)
