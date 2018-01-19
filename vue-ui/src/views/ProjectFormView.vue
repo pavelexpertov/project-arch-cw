@@ -78,6 +78,7 @@ export default {
             }
             console.log(details)
             if(this.project_id){
+                delete details.user_id
                 var endpoint = "projects/" + this.project_id
                 this.$http.put(endpoint, details)
                 .then(response => {

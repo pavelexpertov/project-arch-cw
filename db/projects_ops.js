@@ -95,5 +95,26 @@ function getProjectByProjectIdQ(project_id)
     });
 }
 
+function updateProjectByProjectIdQ(project_id, project){
+    let that_client;
+    project_id = mongodb.generateObject(project_id);
+    return Q.Promise((resolve, reject) => {
+        mongodb.getConnectedMongoClientQ()
+        .then(client => {
+            that_client = client;
+            let collection = client.collection(main_collection_name);
+            let search_query = {_id: project_id};
+            let update_query = {$set: project}
+            return collection.findOneAndUpdate(search_query, update_query);
+        })
+        .then(result => {
+            resolve({ok: true, message: "Successfully updated the project"});
+        })
+        .catch(err => reject(err))
+        .finally(() => that_client.close());
+    });
+}
+
 exports.insertNewProjectQ = insertNewProjectQ;
 exports.getProjectByProjectIdQ = getProjectByProjectIdQ;
+exports.updateProjectByProjectIdQ = updateProjectByProjectIdQ;

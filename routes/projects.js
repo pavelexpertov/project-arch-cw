@@ -34,8 +34,11 @@ router.get('/projects/:projectid', (req, res) => {
 });
 
 router.put('/projects/:projectid', (req, res) => {
-    console.log(req.body)
-    res.send("implemnt me");
+    let project_id = req.param('projectid');
+    let project = req.body;
+    projects_ops.updateProjectByProjectIdQ(project_id, project)
+    .then(result => res.json(result))
+    .catch(err => handleError(err, res));
 });
 
 module.exports = router;
