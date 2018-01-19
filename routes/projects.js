@@ -5,6 +5,9 @@ var projects_ops = require('../db/projects_ops');
 var handleError = require('./error_handler');
 var express = require('express');
 var router = express.Router();
+var user_session = require('../util/user_session');
+
+router.use(user_session.checkUserIdSessionMiddleware);
 
 //Create a new project
 router.post('/', (req, res) => {

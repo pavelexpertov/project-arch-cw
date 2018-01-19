@@ -2,6 +2,9 @@ var to_do_list_ops = require('../db/to_do_list_ops');
 var handleError = require('./error_handler');
 var express = require('express');
 var router = express.Router();
+var user_session = require('../util/user_session');
+
+router.use(user_session.checkUserIdSessionMiddleware);
 
 /*Return a to do list doc*/
 router.get('/:todo_list_id', (req, res) => {

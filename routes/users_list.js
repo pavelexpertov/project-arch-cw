@@ -2,6 +2,9 @@ var user_list_ops = require('../db/users_list_ops');
 var handleError = require('./error_handler');
 var express = require('express');
 var router = express.Router();
+var user_session = require('../util/user_session');
+
+router.use(user_session.checkUserIdSessionMiddleware);
 
 /*returns users list*/
 router.get('/:list_id', (req, res) => {
