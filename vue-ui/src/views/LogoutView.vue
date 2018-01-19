@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'LogoutView',
   data: function () {
@@ -11,8 +13,13 @@ export default {
     }
   },
   mounted: function () {
-    this.$store.commit('logout')
-    this.$router.push({name: 'Login'})
+    this.$http.get('logout')
+    .then(response => {
+      this.$store.commit('logout')
+      Vue.http.headers.common['Authorization'] = ''
+      this.$router.push({name: 'Login'})
+    })
+    .catch(err => console.log(err))
   }
 }
 </script>

@@ -14,6 +14,8 @@
 
 <script>
 /* eslint-disable */
+import Vue from 'vue'
+
 export default {
   name: 'LoginView',
   data: function () {
@@ -36,6 +38,8 @@ export default {
               this.$store.commit('setPassword', creds.password)
               this.$store.commit('setUserId', json.id)
               this.$store.commit('setIsSignedInToTrue')
+              let auth = "Bearer " + json.id + ":" + creds.password
+              Vue.http.headers.common['Authorization'] = auth
               this.$router.push({name: 'Projects'})
           }
       })

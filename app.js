@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/', index);
 //app.use('/users', users);
-app.use('/', test);
+app.use('/test', test);
 app.use('/', user_auth);
 app.use('/', projects);
 app.use('/', users);

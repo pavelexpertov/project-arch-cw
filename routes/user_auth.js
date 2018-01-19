@@ -5,13 +5,15 @@ var user_db = require('../db/user_management_auth');
 var handleError = require('./error_handler');
 var express = require('express');
 var router = express.Router();
+var user_session = require('../util/user_session')
 
 
 router.post('/login', (req, res) => {
     let obj = req.body;
     user_db.isUserLoginValidQ(obj.username, obj.password)
-    .then(result => {
-        res.json({ok: true, id: result});
+    .then(user_id => {
+        user_session.registerUser(user_id.toHexString(), obj.password);
+        res.json({ok: true, id: user_id});
     })
     .catch(err => {
         handleError(err, res);
@@ -31,5 +33,12 @@ router.post('/signup', (req, res) => {
     })
     .done();
 });
+
+router.get('/logout', (req, res) => {
+    let auth = user_session.getCredentialsFromRequest(req);
+    let user_id = auth.user_id;
+    user_session.unregisterUser(user_id);
+    res.send("Successful logout");
+})
 
 module.exports = router;
