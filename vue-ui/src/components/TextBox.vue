@@ -4,6 +4,7 @@
     :fetch-suggestions="performSearchQuery"
     :trigger-on-focus="false"
     placeholder="Search"
+    :disabled="!editable_box"
     @select="handleSelect">
         <el-button slot="append" icon="el-icon-search"></el-button>
     </el-autocomplete>
@@ -11,20 +12,31 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'TextBox',
   props: {
     endpoint_name: {
       type: String,
       required: true
-    }
+  },
+  editable_box: {
+      type: Boolean,
+      default: true
+  }
   },
   data: function () {
     return {
       textBoxInput: '',
-      endpointName: this.endpoint_name
+      endpointName: this.endpoint_name,
+      //editable: this.editable_box
     }
   },
+  /*computed: {
+   editable: function(){
+       return this.editable_box
+   }
+  },*/
   methods: {
     performSearchQuery: function (queryString, callbackFunction) {
       console.log('search query is', queryString)

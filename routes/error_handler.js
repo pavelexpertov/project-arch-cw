@@ -6,12 +6,11 @@ The format of error should be {code: number, message: string}
 */
 
 function handleError(error, response){
-        console.log(error.message);
+        console.log(error);
         if(error.code)
             response.status(error.code).send(error.message || error.errmessage || error);
         else
             response.status(500).send(error.message || error.errmsg || error);
-
 }
 
 module.exports = handleError;

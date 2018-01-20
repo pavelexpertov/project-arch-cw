@@ -15,8 +15,13 @@
         <el-menu-item index="3">
           Search
         </el-menu-item>
-        <router-link to="/logout">
+        <router-link to="/user">
             <el-menu-item index="4">
+                Account Settings
+            </el-menu-item>
+        </router-link>
+        <router-link to="/logout">
+            <el-menu-item index="5">
               Log Out
             </el-menu-item>
         </router-link>

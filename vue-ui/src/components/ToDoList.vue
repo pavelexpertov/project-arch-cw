@@ -1,24 +1,60 @@
 <template>
     <div>
         <h3>{{todoTextBox}}</h3>
-        <el-input v-model:value="todoTextBox">
+        <el-input v-model:value="todoTextBox" :disabled="!editable_list">
             <el-button
                 slot="append"
                 icon="el-icon-circle-plus"
+                :disabled="!editable_list"
                 @click="addToDo"
             ></el-button>
         </el-input>
-        <to-do-item
-            v-for="item in todoList"
-            :todo_item="item"
-            :key="item.id"
-            @deleteItem="item => deleteItem(item)"
-        >
-        </to-do-item>
-    </div>
+        <el-table
+        :data="todoList"
+        style="width: 100%">
+            <el-table-column
+            label="Completed"
+            width="60">
+                <template slot-scope="scope">
+                <el-checkbox v-model="scope.row.completed" @change="uploadToDoList"></el-checkbox>
+                </template>
+            </el-table-column>
+            <el-table-column
+            label="Task"
+            prop="title"
+            width="180">
+            </el-table-column>
+            <el-table-column
+             label="date"
+             width="180">
+                <template slot-scope="scope">
+                    <el-date-picker type="date" v-model="scope.row.date" @change="uploadToDoList" :disabled="!editable_list">
+                    </el-date-picker>
+                </template>
+            </el-table-column>
+            <el-table-column
+            label="Operations"
+            width="130">
+                <template slot-scope="scope">
+                    <el-button
+                    size="mini"
+                    type="danger"
+                    :disabled="!editable_list"
+                    @click="deleteItem(scope.row)">
+                    Remove
+                    </el-button>
+                </template>
+            </el-table-column>
+
+        </el-table>
+        <p>
+            {{todoList}}
+        </p>
+        </div>
 </template>
 
 <script>
+/* eslint-disable */
 import ToDoItem from '@/components/ToDoItem'
 import * as moment from 'moment'
 
@@ -28,6 +64,10 @@ export default {
     todo_list_id: {
       type: String,
       required: true
+  },
+    editable_list: {
+        type: Boolean,
+        default: true
     }
   },
   data: function () {

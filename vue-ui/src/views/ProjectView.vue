@@ -1,24 +1,27 @@
 <template>
     <div>
+        <template v-if="isUserProjectOwner">
         <router-link
         :to="'/editproject/' + project._id"
-        v-if="isUserProjectOwner"
         >
             <el-button>Edit</el-button>
         </router-link>
+        <el-button type="danger" @click="handleDelete">Delete Plan</el-button>
+    </template>
         <div>
             <h1> Here's the view of the project</h1>
             <h1> {{project._id}}</h1>
             <h1> {{project.project_title}}</h1>
         </div>
         <div>
-             <to-do-list v-if="todoListId" :todo_list_id="todoListId"></to-do-list>
-            <item-list v-if="playersListId" :endpoint_name="endpoint" :list_id="playersListId"></item-list>
+             <to-do-list v-if="todoListId" :todo_list_id="todoListId" :editable_list="userRights.todo_list"></to-do-list>
+            <item-list v-if="playersListId" :endpoint_name="endpoint" :list_id="playersListId" :editable_list="userRights.players_list"></item-list>
         </div>
     </div>
 </template>
 
 <script>
+/* eslint-disable */
 import ToDoList from '@/components/ToDoList'
 import ItemList from '@/components/ItemList'
 import {loggedOutMixin} from '@/user_session'
@@ -66,7 +69,18 @@ export default {
       return this.project.user_id === this.$store.state.user_id
     }
   },
-  mixins: [loggedOutMixin]
+  mixins: [loggedOutMixin],
+  methods: {
+      handleDelete: function() {
+        let projectId = this.$route.params.project_id
+        this.$http.delete('projects/' + projectId)
+        .then(response => {
+            if(response.body.ok === true)
+                this.$router.push({name: 'Projects'})
+        })
+        .catch(err => console.log(err))
+      }
+  }
 }
 </script>
 
