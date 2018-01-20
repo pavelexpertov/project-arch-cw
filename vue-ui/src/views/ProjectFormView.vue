@@ -1,35 +1,45 @@
 <template>
-    <el-form ref="form" :model="form" label-width="120px">
-        <el-form-item label="Plan Title">
-            <el-input v-model="form.project_title"></el-input>
-        </el-form-item>
-        <el-form-item label="Opposition Team">
-            <el-input v-model="form.opposition_team"></el-input>
-        </el-form-item>
-        <el-form-item label="Description">
-            <el-input type="textarea" v-model="form.main_description"></el-input>
-        </el-form-item>
-        <el-form-item label="Match Start Date">
-            <el-date-picker type="date" placeholder="Pick a date" v-model="form.match_start_date"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="Trip Start Date">
-            <el-date-picker type="date" placeholder="Pick a date" v-model="form.trip_start_date"></el-date-picker>
-        </el-form-item>
-        <el-form-item>
-            <el-button @click="saveBtn">
-                {{btnSaveNameText}}
-            </el-button>
-        </el-form-item>
-        <el-form-item>
-            <el-button @click="cancelBtn">
-                Cancel
-            </el-button>
-        </el-form-item>
-    </el-form>
+    <div>
+        <el-form ref="form" :model="form" label-width="120px">
+            <el-form-item label="Plan Title">
+                <el-input v-model="form.project_title"></el-input>
+            </el-form-item>
+            <el-form-item label="Opposition Team">
+                <el-input v-model="form.opposition_team"></el-input>
+            </el-form-item>
+            <el-form-item label="Description">
+                <el-input type="textarea" v-model="form.main_description"></el-input>
+            </el-form-item>
+            <el-form-item label="Match Start Date">
+                <el-date-picker type="date" placeholder="Pick a date" v-model="form.match_start_date"></el-date-picker>
+            </el-form-item>
+            <el-form-item label="Trip Start Date">
+                <el-date-picker type="date" placeholder="Pick a date" v-model="form.trip_start_date"></el-date-picker>
+            </el-form-item>
+            <el-form-item>
+                <el-button @click="saveBtn">
+                    {{btnSaveNameText}}
+                </el-button>
+            </el-form-item>
+            <el-form-item>
+                <el-button @click="cancelBtn">
+                    Cancel
+                </el-button>
+            </el-form-item>
+        </el-form>
+        <item-list
+        v-if="users_list_id"
+        :endpoint_name="endpoint"
+        :list_id="users_list_id"
+        >
+        </item-list>
+    </div>
 </template>
 
 <script>
 /* eslint-disable */
+import ItemList from '@/components/ItemList'
+
 export default {
     name: "ProjectFormView",
     data: function(){
@@ -41,7 +51,9 @@ export default {
                 match_start_date: '',
                 trip_start_date:''
             },
-            project_id: ''
+            project_id: '',
+            users_list_id: '',
+            endpoint: "users"
         }
     },
     created: function(){
@@ -53,6 +65,7 @@ export default {
                 let pr = response.body
                 this.project_id = pr._id
                 this.form = pr
+                this.users_list_id = pr.userswithrights_list_id
             })
             .catch(err => console.log(err))
         }
@@ -96,6 +109,9 @@ export default {
 
             }
         }
+    },
+    components: {
+        itemList: ItemList
     }
 }
 </script>

@@ -37,7 +37,7 @@ function getOwnAndSharedProjects(user_id){
         .then(users_listArray => {
             //Convert a list of documents into an array of objectIds
             //for collecting the documents.
-            console.log(users_listArray);
+            //console.log(users_listArray);
             let objIdArray = [];
             let length = users_listArray.length;
             for(var index = 0; index < length; ++index){
