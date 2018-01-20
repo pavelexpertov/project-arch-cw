@@ -30,7 +30,11 @@ export default {
       project: '',
       playersListId: '',
       todoListId: '',
-      endpoint: 'players'
+      endpoint: 'players',
+      userRights: {
+        players_list: true,
+        todo_list: true
+      }
     }
   },
   mounted: function () {
@@ -42,6 +46,14 @@ export default {
         this.project = project
         this.playersListId = project.players_list_id
         this.todoListId = project.todo_list_id
+        if (project.user_id !== this.$store.state.user_id) {
+          let endpoint = 'users_list/' + project.userswithrights_list_id + '/rights/' + this.$store.state.user_id
+          return this.$http.get(endpoint)
+            .then(response => {
+              this.userRights = response.body.edit_rights
+              console.log(this.user_rights)
+            })
+        }
       })
       .catch(err => console.log(err))
   },
