@@ -44,4 +44,11 @@ router.put('/:projectid', (req, res) => {
     .catch(err => handleError(err, res));
 });
 
+router.delete('/:projectid', (req, res) => {
+    let project_id = req.param('projectid');
+    projects_ops.deleteProjectByProjectId(project_id)
+    .then(result => res.json(result))
+    .catch(err => handleError(err, res));
+})
+
 module.exports = router;

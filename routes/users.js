@@ -49,7 +49,7 @@ router.put("/id/:user_id", (req, res) => {
   let user_id = req.param('user_id');
   let user_doc = req.body;
   users_ops.updateUserAccountByUserId(user_id, user_doc)
-  .then(result = res.json(result))
+  .then(result => res.json(result))
   .catch(err => handleError(err, res));
 })
 

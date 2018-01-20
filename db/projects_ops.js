@@ -86,7 +86,7 @@ function getProjectByProjectIdQ(project_id)
             return collection.findOne(search_query);
         })
         .then(resultDoc => {
-            if(resultDoc === null) reject({code: 404, message: "Project wasn't found by the id of " + project_id.str});
+            if(resultDoc === null) reject({code: 404, message: "Project wasn't found by the id of " + project_id.toHexString()});
             resolve(resultDoc);
         })
         .catch(err => reject(err))
@@ -115,6 +115,59 @@ function updateProjectByProjectIdQ(project_id, project){
     });
 }
 
+
+function deleteProjectByProjectId(project_id){
+    let that_client;
+    project_id = mongodb.generateObject(project_id);
+    let todo_list_id;
+    let players_list_id;
+    let userswithrights_list_id;
+    return Q.Promise((resolve, reject) => {
+        mongodb.getConnectedMongoClientQ()
+        .then(client => {
+            that_client = client;
+            //Getting the project doc before deleting it.
+            let collection = client.collection(main_collection_name);
+            let search_query = {_id: project_id};
+            return collection.findOne(search_query);
+        })
+        .then(project => {
+            todo_list_id = project.todo_list_id;
+            userswithrights_list_id = project.userswithrights_list_id;
+            players_list_id = project.players_list_id
+            //Deleting the project
+            let collection = that_client.collection(main_collection_name);
+            let search_query = {_id: project_id};
+            return collection.deleteOne(search_query);
+        })
+        .then(result => {
+            //Deleting project's to do lists associated with the delted objects
+            let collection = that_client.collection('todo_lists');
+            let search_query = {_id: todo_list_id};
+            return collection.deleteOne(search_query);
+        })
+        .then(result => {
+            //Deleting project's userswithrights lists associated with the delted objects
+            let collection = that_client.collection('userswithrights_list');
+            let search_query = {_id: userswithrights_list_id};
+            return collection.deleteOne(search_query);
+        })
+        .then(result => {
+            //Deleting project's players lists associated with the delted objects
+            let collection = that_client.collection('players_list');
+            let search_query = {_id: players_list_id};
+            return collection.deleteOne(search_query);
+        })
+        .then(result => {
+            resolve({ok: true, message: "Deleted the project successfully"});
+        })
+        .catch(err => reject(err))
+        .finally(() => that_client.close())
+        .done();
+    });
+}
+
 exports.insertNewProjectQ = insertNewProjectQ;
 exports.getProjectByProjectIdQ = getProjectByProjectIdQ;
 exports.updateProjectByProjectIdQ = updateProjectByProjectIdQ;
+exports.deleteProjectByProjectId = deleteProjectByProjectId;
