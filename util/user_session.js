@@ -46,8 +46,12 @@ function checkUserIdSessionMiddleware(req, res, next){
                 }
             }
         }
-        if(!verifiedFlag)
-            res.status(403).send("User not authenticated");
+        if(!verifiedFlag){
+            if(user_id === '')
+                res.status(403).send("Credentials are not provided");
+            else
+                res.status(403).send("User not authenticated");
+        }
     }
     else
         next();
