@@ -6,6 +6,7 @@
         >
             <el-button>Edit</el-button>
         </router-link>
+        <el-button type="danger" @click="handleDelete">Delete Plan</el-button>
         <div>
             <h1> Here's the view of the project</h1>
             <h1> {{project._id}}</h1>
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import ToDoList from '@/components/ToDoList'
 import ItemList from '@/components/ItemList'
 import {loggedOutMixin} from '@/user_session'
@@ -66,7 +68,18 @@ export default {
       return this.project.user_id === this.$store.state.user_id
     }
   },
-  mixins: [loggedOutMixin]
+  mixins: [loggedOutMixin],
+  methods: {
+      handleDelete: function() {
+        let projectId = this.$route.params.project_id
+        this.$http.delete('projects/' + projectId)
+        .then(response => {
+            if(response.body.ok === true)
+                this.$router.push({name: 'Projects'})
+        })
+        .catch(err => console.log(err))
+      }
+  }
 }
 </script>
 

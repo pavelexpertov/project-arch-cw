@@ -8,6 +8,7 @@ import Projects from '@/views/ProjectsView'
 import Project from '@/views/ProjectView'
 import Logout from '@/views/LogoutView'
 import ProjectForm from '@/views/ProjectFormView'
+import UserAccountView from '@/views/UserAccountView'
 
 Vue.use(Router)
 
@@ -52,6 +53,11 @@ export default new Router({
       path: '/editproject/:project_id',
       name: 'ProjectEditForm',
       component: ProjectForm
-    }
+  },
+  {
+      path: '/user',
+      name: 'UserAccountView',
+      component: UserAccountView
+  }
   ]
 })
