@@ -54,13 +54,20 @@ function checkUserIdSessionMiddleware(req, res, next){
 }
 
 function getCredentialsFromRequest(request){
-    let auth = request.get('Authorization')
-    let indexOfSpace = auth.indexOf(' ');
-    auth = auth.slice(indexOfSpace + 1);
-    let indexOfColon = auth.indexOf(':');
-    let user_id = auth.slice(0, indexOfColon); 
-    let password = auth.slice(indexOfColon + 1);
-    return {user_id: user_id, password: password};
+    try
+    {
+        let auth = request.get('Authorization')
+        let indexOfSpace = auth.indexOf(' ');
+        auth = auth.slice(indexOfSpace + 1);
+        let indexOfColon = auth.indexOf(':');
+        let user_id = auth.slice(0, indexOfColon); 
+        let password = auth.slice(indexOfColon + 1);
+        return {user_id: user_id, password: password};
+    }
+    catch(err){
+        //console.log(err);
+        return {user_id: '', password: ''};
+    }
 }
 
 module.exports.registerUser = registerUser
