@@ -8,14 +8,47 @@
                 @click="addToDo"
             ></el-button>
         </el-input>
-        <to-do-item
-            v-for="item in todoList"
-            :todo_item="item"
-            :key="item.id"
-            @deleteItem="item => deleteItem(item)"
-        >
-        </to-do-item>
-    </div>
+        <el-table
+        :data="todoList"
+        style="width: 100%">
+            <el-table-column
+            label="Completed"
+            width="60">
+                <template slot-scope="scope">
+                <el-checkbox v-model="scope.row.completed" @change="uploadToDoList"></el-checkbox>
+                </template>
+            </el-table-column>
+            <el-table-column
+            label="Task"
+            prop="title"
+            width="180">
+            </el-table-column>
+            <el-table-column
+             label="date"
+             width="180">
+                <template slot-scope="scope">
+                    <el-date-picker type="date" v-model="scope.row.date" @change="uploadToDoList">
+                    </el-date-picker>
+                </template>
+            </el-table-column>
+            <el-table-column
+            label="Operations"
+            width="130">
+                <template slot-scope="scope">
+                    <el-button
+                    size="mini"
+                    type="danger"
+                    @click="deleteItem(scope.row)">
+                    Remove
+                    </el-button>
+                </template>
+            </el-table-column>
+
+        </el-table>
+        <p>
+            {{todoList}}
+        </p>
+        </div>
 </template>
 
 <script>
