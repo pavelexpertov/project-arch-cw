@@ -38,12 +38,19 @@ It returns a boolean of true if the operation was successful.
 Throws an error if it hasn't been successful
 */
 function signUpUserQ(username, password, fullname, job_role){
+    let that_client = '';
     return Q.Promise((resolve, reject) => {
-        let that_client = '';
         mongodb.getConnectedMongoClientQ()
         .then(client => {
             that_client = client;
-            user_collection = client.collection(collection_name);
+            let collection = client.collection(collection_name);
+            let search_query = {username: username};
+            return collection.findOne(search_query);
+        })
+        .then(existing_user => {
+            if(existing_user !== null) reject({err: 403, message: "the username already exists"}) 
+
+            user_collection = that_client.collection(collection_name);
             let insertObject = {'username': username, 'password': password, 'fullname': fullname, 'job_role': job_role};
             user_collection.insertOne(insertObject)
             .then(r => {
