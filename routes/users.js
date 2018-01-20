@@ -36,4 +36,31 @@ router.get('/:name', (req, res) => {
   .catch(err => handleError(err, res));
 });
 
+/*Returns a user json doc from the database*/
+router.get("/id/:user_id", (req, res) => {
+  let user_id = req.param('user_id');
+  users_ops.getUserByUserId(user_id)
+  .then(user_doc => res.json(user_doc))
+  .catch(err => handleError(err, res));
+})
+
+/*Update user's details*/
+router.put("/id/:user_id", (req, res) => {
+  let user_id = req.param('user_id');
+  let user_doc = req.body;
+  users_ops.updateUserAccountByUserId(user_id, user_doc)
+  .then(result = res.json(result))
+  .catch(err => handleError(err, res));
+})
+
+/*Delete user account*/
+router.delete("/id/:user_id", (req, res) => {
+  let user_id = req.param('user_id');
+  users_ops.deleteUserAccountByUserId(user_id)
+  .then(result => res.json(result))
+  .catch(err => handleError(err, res));
+})
+
+
+
 module.exports = router;
