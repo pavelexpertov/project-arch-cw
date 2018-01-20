@@ -39,6 +39,7 @@
 <script>
 /* eslint-disable */
 import ItemList from '@/components/ItemList'
+import {loggedOutMixin} from '@/user_session'
 
 export default {
     name: "ProjectFormView",
@@ -112,7 +113,8 @@ export default {
     },
     components: {
         itemList: ItemList
-    }
+    },
+    mixins: [loggedOutMixin]
 }
 </script>
 

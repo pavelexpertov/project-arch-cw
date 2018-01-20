@@ -21,6 +21,8 @@
 
 <script>
 /* eslint-disable */
+import {loggedOutMixin} from '@/user_session'
+
 export default {
   name: 'ProjectsView',
   data: function () {
@@ -43,7 +45,8 @@ export default {
   },
   mounted: function () {
       this.getProjectsFromServer()
-  }
+  },
+  mixins: [loggedOutMixin]
 }
 </script>
 

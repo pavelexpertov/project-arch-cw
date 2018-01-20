@@ -4,6 +4,7 @@
 
 <script>
 import Vue from 'vue'
+import {loggedOutMixin} from '@/user_session'
 
 export default {
   name: 'LogoutView',
@@ -20,7 +21,8 @@ export default {
       this.$router.push({name: 'Login'})
     })
     .catch(err => console.log(err))
-  }
+  },
+  mixins: [loggedOutMixin]
 }
 </script>
 

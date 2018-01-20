@@ -21,6 +21,7 @@
 <script>
 import ToDoList from '@/components/ToDoList'
 import ItemList from '@/components/ItemList'
+import {loggedOutMixin} from '@/user_session'
 
 export default {
   name: 'ProjectView',
@@ -52,7 +53,8 @@ export default {
     isUserProjectOwner: function () {
       return this.project.user_id === this.$store.state.user_id
     }
-  }
+  },
+  mixins: [loggedOutMixin]
 }
 </script>
 

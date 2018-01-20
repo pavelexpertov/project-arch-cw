@@ -15,6 +15,7 @@
 <script>
 /* eslint-disable */
 import Vue from 'vue'
+import {loggedInMixin} from '@/user_session'
 
 export default {
   name: 'LoginView',
@@ -51,7 +52,8 @@ export default {
           })
       })
     }
-  }
+},
+mixins: [loggedInMixin]
 }
 </script>
 

@@ -24,6 +24,8 @@
 
 <script>
 /* eslint-disable */
+import {loggedInMixin} from '@/user_session'
+
 export default {
   name: 'SignUpView',
   data: function () {
@@ -60,7 +62,8 @@ export default {
           })
       })
     }
-  }
+  },
+  mixins: [loggedInMixin]
 }
 </script>
 
