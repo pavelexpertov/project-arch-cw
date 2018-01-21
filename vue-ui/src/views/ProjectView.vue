@@ -14,7 +14,7 @@
             <h1> {{project.project_title}}</h1>
         </div>
         <div>
-             <to-do-list v-if="todoListId" :todo_list_id="todoListId"></to-do-list>
+             <to-do-list v-if="todoListId" :todo_list_id="todoListId" :editable_list="userRights.todo_list"></to-do-list>
             <item-list v-if="playersListId" :endpoint_name="endpoint" :list_id="playersListId" :editable_list="userRights.players_list"></item-list>
         </div>
     </div>

@@ -1,10 +1,11 @@
 <template>
     <div>
         <h3>{{todoTextBox}}</h3>
-        <el-input v-model:value="todoTextBox">
+        <el-input v-model:value="todoTextBox" :disabled="!editable_list">
             <el-button
                 slot="append"
                 icon="el-icon-circle-plus"
+                :disabled="!editable_list"
                 @click="addToDo"
             ></el-button>
         </el-input>
@@ -27,7 +28,7 @@
              label="date"
              width="180">
                 <template slot-scope="scope">
-                    <el-date-picker type="date" v-model="scope.row.date" @change="uploadToDoList">
+                    <el-date-picker type="date" v-model="scope.row.date" @change="uploadToDoList" :disabled="!editable_list">
                     </el-date-picker>
                 </template>
             </el-table-column>
@@ -38,6 +39,7 @@
                     <el-button
                     size="mini"
                     type="danger"
+                    :disabled="!editable_list"
                     @click="deleteItem(scope.row)">
                     Remove
                     </el-button>
@@ -52,6 +54,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import ToDoItem from '@/components/ToDoItem'
 import * as moment from 'moment'
 
@@ -61,6 +64,10 @@ export default {
     todo_list_id: {
       type: String,
       required: true
+  },
+    editable_list: {
+        type: Boolean,
+        default: true
     }
   },
   data: function () {
