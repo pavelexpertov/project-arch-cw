@@ -16,12 +16,17 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'UserItem',
   props: {
     user_obj: {
       type: Object
-    }
+  },
+  editable: {
+      type: Boolean,
+      default: true
+  }
   },
   data: function () {
     return {

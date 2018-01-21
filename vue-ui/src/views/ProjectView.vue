@@ -1,12 +1,13 @@
 <template>
     <div>
+        <template v-if="isUserProjectOwner">
         <router-link
         :to="'/editproject/' + project._id"
-        v-if="isUserProjectOwner"
         >
             <el-button>Edit</el-button>
         </router-link>
         <el-button type="danger" @click="handleDelete">Delete Plan</el-button>
+    </template>
         <div>
             <h1> Here's the view of the project</h1>
             <h1> {{project._id}}</h1>
@@ -14,7 +15,7 @@
         </div>
         <div>
              <to-do-list v-if="todoListId" :todo_list_id="todoListId"></to-do-list>
-            <item-list v-if="playersListId" :endpoint_name="endpoint" :list_id="playersListId"></item-list>
+            <item-list v-if="playersListId" :endpoint_name="endpoint" :list_id="playersListId" :editable_list="userRights.players_list"></item-list>
         </div>
     </div>
 </template>

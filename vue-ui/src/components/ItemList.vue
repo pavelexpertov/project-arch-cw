@@ -2,6 +2,7 @@
     <div>
         <text-box
          :endpoint_name="endpointName"
+         :editable_box="this.editable_list"
          @selectItem="item => handleSelectedItem(item)"
          >
         </text-box>
@@ -11,6 +12,7 @@
                 v-if="endpoint_name == 'players'"
                 :key="item._id"
                 :player_obj="item"
+                :editable="editable_list"
                 @deleteItem="item => deleteItem(item)"
             >
             </player-item>
@@ -28,6 +30,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import TextBox from '@/components/TextBox'
 import PlayerItem from '@/components/PlayerItem'
 import UserItem from '@/components/UserItem'
@@ -42,7 +45,11 @@ export default {
     list_id: {
       type: String,
       required: true
-    }
+      },
+      editable_list: {
+          type: Boolean,
+          default: true
+      }
   },
   data: function () {
     return {
