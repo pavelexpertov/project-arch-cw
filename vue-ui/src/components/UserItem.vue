@@ -1,7 +1,17 @@
 <template>
     <el-row>
-        <el-col :span="12">{{fullname}}</el-col>
-        <el-col :span="12"><el-button type="danger" @click="deleteUser">Remove</el-button></el-col>
+        <el-col :span="8"><p>{{fullname}}</p></el-col>
+        <el-col :span="4">
+            <p>
+                <el-checkbox v-model="userObj.edit_rights.players_list" @change="updateUser">Players List</el-checkbox>
+            </p>
+        </el-col>
+        <el-col :span="4">
+            <p><el-checkbox v-model="userObj.edit_rights.todo_list" @change="updateUser">ToDo List</el-checkbox></p>
+        </el-col>
+        <el-col :span="8">
+            <p><el-button type="danger" @click="deleteUser" size="mini">Remove</el-button></p>
+        </el-col>
     </el-row>
 </template>
 
@@ -30,6 +40,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
 </style>

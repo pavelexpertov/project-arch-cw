@@ -77,6 +77,7 @@ export default {
     },
     updateItem: function (selectedItem) {
       console.log('something got updated', selectedItem)
+      this.updateItemList()
     },
     updateItemList: function () {
       // generating formatted array
