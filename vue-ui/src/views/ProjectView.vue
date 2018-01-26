@@ -1,12 +1,23 @@
 <template>
     <div>
+        <el-dialog
+          title="Warning"
+          :visible.sync="centerDialogVisible"
+          width="30%"
+          center>
+          <span>Are you sure you want to delete the project?</span>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="centerDialogVisible = false">Cancel</el-button>
+            <el-button type="primary" @click="handleDelete">Confirm</el-button>
+          </span>
+        </el-dialog>
         <template v-if="isUserProjectOwner">
         <router-link
         :to="'/editproject/' + project._id"
         >
             <el-button>Edit</el-button>
         </router-link>
-        <el-button type="danger" @click="handleDelete">Delete Plan</el-button>
+        <el-button type="danger" @click="centerDialogVisible = true">Delete Plan</el-button>
     </template>
         <div>
             <h1> Here's the view of the project</h1>
@@ -34,6 +45,7 @@ export default {
       playersListId: '',
       todoListId: '',
       endpoint: 'players',
+      centerDialogVisible: false,
       userRights: {
         players_list: true,
         todo_list: true

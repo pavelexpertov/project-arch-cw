@@ -1,29 +1,29 @@
 <template>
-  <el-form ref="form" :model="form" label-width="120px">
-    <el-form-item label="Full Name">
+  <el-form ref="form" :model="form" :rules="rules" label-width="120px">
+    <el-form-item label="Full Name" prop="fullname">
       <el-input v-model="form.fullname"></el-input>
     </el-form-item>
-    <el-form-item label="Job Role">
+    <el-form-item label="Job Role" prop="job_role">
     <el-select v-model="form.job_role" placeholder="please select your job role">
       <el-option label="Manager" value="manager"></el-option>
       <el-option label="Sport Technician" value="sport_technician"></el-option>
       <el-option label="Trainer" value="trainer"></el-option>
     </el-select>
   </el-form-item>
-    <el-form-item label="Username">
+    <el-form-item label="Username" prop="username">
       <el-input v-model="form.username"></el-input>
     </el-form-item>
-    <el-form-item label="Password">
+    <el-form-item label="Password" prop="password">
       <el-input type="password" v-model="form.password"></el-input>
     </el-form-item>
     <template v-if="!this.form_obj._id">
       <el-form-item>
-        <el-button type="primary" @click="onSubmitPost">Sign Up</el-button>
+        <el-button type="primary" @click="validateBeforeSubmission('form', 'post')">Sign Up</el-button>
       </el-form-item>
     </template>
     <template v-else>
       <el-form-item>
-        <el-button type="primary" @click="onSubmitPut">Save</el-button>
+        <el-button type="primary" @click="validateBeforeSubmission('form', 'put')">Save</el-button>
       </el-form-item>
     </template>
   </el-form>
@@ -48,10 +48,23 @@ export default {
     },
     data: function(){
         return {
-            form: this.form_obj
+            form: this.form_obj,
+            rules: {
+                fullname: [
+                    {required: true, message: 'Enter full name'}
+                ],
+                username: [
+                    {required: true, message: 'Enter username'}
+                ],
+                password: [
+                    {required: true, message: 'Enter password'}
+                ],
+                job_role: [
+                    { required: true, message: 'Select a job role', trigger: 'change' }
+                ]
+            }
         }
     },
-    
     methods: {
         onSubmitPost: function () {
           console.log('submit for signup!' + ' ' + this.form.username + ' ' + this.form.password)
@@ -93,7 +106,22 @@ export default {
                   message: err.body
               })
           })
-        }
+      },
+      validateBeforeSubmission: function(formName, method_name) {
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+                if(method_name === 'post')
+                    this.onSubmitPost()
+                else if(method_name === 'put')
+                    this.onSubmitPut()
+                else
+                    console.log("Selected a wrong method!!!")
+            } else {
+              console.log('error submit!!');
+              return false;
+            }
+          });
+      }
     }
 }
 </script>

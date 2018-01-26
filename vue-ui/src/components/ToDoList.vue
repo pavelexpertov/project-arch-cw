@@ -28,7 +28,7 @@
              label="date"
              width="180">
                 <template slot-scope="scope">
-                    <el-date-picker type="date" v-model="scope.row.date" @change="uploadToDoList" :disabled="!editable_list">
+                    <el-date-picker type="date" v-model="scope.row.date" @change="uploadToDoList" :disabled="!editable_list" format="yyyy/MM/dd"  value-format="yyyy-MM-dd">
                     </el-date-picker>
                 </template>
             </el-table-column>
@@ -82,6 +82,8 @@ export default {
       let date = moment().add(1, 'd')
       date = date.format('YYYY-MM-DD')
       let title = this.todoTextBox
+      //Return if the text box was empty
+      if(title === '') return
       this.todoTextBox = ''
       let completed = false
       let id = '' + Math.random()

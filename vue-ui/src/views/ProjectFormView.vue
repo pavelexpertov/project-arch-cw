@@ -1,23 +1,23 @@
 <template>
     <div>
-        <el-form ref="form" :model="form" label-width="120px">
-            <el-form-item label="Plan Title">
+        <el-form ref="form" :model="form" :rules="rules" label-width="160px">
+            <el-form-item label="Plan Title" prop="project_title">
                 <el-input v-model="form.project_title"></el-input>
             </el-form-item>
-            <el-form-item label="Opposition Team">
+            <el-form-item label="Opposition Team" prop="opposition_team">
                 <el-input v-model="form.opposition_team"></el-input>
             </el-form-item>
             <el-form-item label="Description">
                 <el-input type="textarea" v-model="form.main_description"></el-input>
             </el-form-item>
-            <el-form-item label="Match Start Date">
-                <el-date-picker type="date" placeholder="Pick a date" v-model="form.match_start_date"></el-date-picker>
+            <el-form-item label="Match Start Date" >
+                <el-date-picker type="date" placeholder="Pick a date" v-model="form.match_start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
-            <el-form-item label="Trip Start Date">
-                <el-date-picker type="date" placeholder="Pick a date" v-model="form.trip_start_date"></el-date-picker>
+            <el-form-item label="Trip Start Date" >
+                <el-date-picker type="date" placeholder="Pick a date" v-model="form.trip_start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
             <el-form-item>
-                <el-button @click="saveBtn">
+                <el-button @click="validateBeforeSubmission('form')">
                     {{btnSaveNameText}}
                 </el-button>
             </el-form-item>
@@ -54,7 +54,21 @@ export default {
             },
             project_id: '',
             users_list_id: '',
-            endpoint: "users"
+            endpoint: "users",
+            rules: {
+                project_title: [
+                    {required: true, message: 'Enter project title'}
+                ],
+                opposition_team: [
+                    {required: true, message: 'Enter name of an opposition team'}
+                ],
+                match_start_date: [
+                    { type: 'date', required: true, message: 'Please pick a date', trigger: 'change' }
+                ],
+                trip_start_date: [
+                    { type: 'date', required: true, message: 'Please pick a date', trigger: 'change' }
+                ]
+            }
         }
     },
     created: function(){
@@ -109,7 +123,17 @@ export default {
                 .catch(err => console.log(err))
 
             }
-        }
+        },
+        validateBeforeSubmission: function(formName) {
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+                this.saveBtn()
+            } else {
+              console.log('error submit!!');
+              return false;
+            }
+          });
+      }
     },
     components: {
         itemList: ItemList
