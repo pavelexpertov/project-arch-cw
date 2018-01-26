@@ -33,14 +33,14 @@
                     width="160"
                 >
                     <template slot-scope="scope">
-                        <p>{{get_sharing_status(scope.row.user_id, scope.row.userswithrights_list_id)}}</p>
+                        <p>{{get_sharing_status(scope.row.user_id, scope.row.userswithrights_list_id, scope.row) || scope.row.rights}}</p>
                     </template>
                 </el-table-column>
             </template>
              <el-table-column
                 width="160"
              >
-                <template slot-scope="scope">
+                <template slot-scope="scope" v-if="scope.row.rights !== 'Not shared with you'">
                     <router-link :to="'/project/' + scope.row._id">
                         <el-button>Go</el-button>
                     </router-link>
@@ -65,8 +65,21 @@ export default {
         }
     },
     methods: {
-        get_sharing_status: function(owner_id, userswithrights_list_id){
-            return "It's working!!! " + owner_id + " and " + userswithrights_list_id
+        get_sharing_status: function(owner_id, userswithrights_list_id, project_doc){
+            //return "It's working!!! " + owner_id + " and " + userswithrights_list_id
+            //If it's the owner
+            if(this.$store.state.user_id === owner_id)
+                return "Owned by You"
+            //Getting the user rights
+            let endpoint = 'users_list/' + userswithrights_list_id + '/rights/' + this.$store.state.user_id
+            this.$http.get(endpoint)
+            .then(response => {
+                //project_doc.rights = "Shared with you"
+                this.$set(project_doc, 'rights', "Shared with you")
+            })
+            .catch(err => {
+                this.$set(project_doc, 'rights', "Not shared with you")
+            })
         }
     }
 }
