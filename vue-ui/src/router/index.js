@@ -9,6 +9,7 @@ import Project from '@/views/ProjectView'
 import Logout from '@/views/LogoutView'
 import ProjectForm from '@/views/ProjectFormView'
 import UserAccountView from '@/views/UserAccountView'
+import SearchView from '@/views/SearchView'
 
 Vue.use(Router)
 
@@ -58,6 +59,11 @@ export default new Router({
       path: '/user',
       name: 'UserAccountView',
       component: UserAccountView
+  },
+  {
+      path: '/search',
+      name: 'SearchView',
+      component: SearchView
   }
   ]
 })

@@ -12,9 +12,11 @@
               My Projects
             </el-menu-item>
         </router-link>
-        <el-menu-item index="3">
-          Search
-        </el-menu-item>
+        <router-link to="/search">
+            <el-menu-item index="3">
+              Search
+            </el-menu-item>
+        </router-link>
         <router-link to="/user">
             <el-menu-item index="4">
                 Account Settings
