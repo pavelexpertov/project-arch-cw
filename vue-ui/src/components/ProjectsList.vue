@@ -66,7 +66,6 @@ export default {
     },
     methods: {
         get_sharing_status: function(owner_id, userswithrights_list_id, project_doc){
-            //return "It's working!!! " + owner_id + " and " + userswithrights_list_id
             //If it's the owner
             if(this.$store.state.user_id === owner_id)
                 return "Owned by You"
@@ -87,7 +86,7 @@ export default {
 
 <style scoped>
 div {
-    width: 90%;
+    width: 1000px;
     margin: auto;
 }
 el-table {

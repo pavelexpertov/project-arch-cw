@@ -36,7 +36,7 @@
             width="300"
             >
                 <template slot-scope="scope">
-                    <el-select v-model="scope.row.user_id" placeholder="Select" clearable>
+                    <el-select v-model="scope.row.user_id" placeholder="Select" clearable :disabled="!editable_list" @change="uploadToDoList">
                         <el-option
                         v-for="user in usersList"
                         :key="user._id"
