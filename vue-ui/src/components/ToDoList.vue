@@ -15,7 +15,7 @@
             label="Completed"
             width="100">
                 <template slot-scope="scope">
-                <el-checkbox v-model="scope.row.completed" @change="uploadToDoList"></el-checkbox>
+                <el-checkbox v-model="scope.row.completed" @change="uploadToDoList" :disabled="scope.row.user_id !== $store.state.user_id && !editable_list"></el-checkbox>
                 </template>
             </el-table-column>
             <el-table-column
