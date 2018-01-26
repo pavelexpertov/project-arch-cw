@@ -48,12 +48,10 @@ function findPlayerListByPlayersListIdQ(project_id){
             result_doc = resultDoc;
             //Get a list of players with full details
             let player_id_list = resultDoc.players_list;
-            //Convert a list of objects into the list of objectIds
             let length = player_id_list.length;
             for(var index = 0; index < length; ++index){
                 player_id_list[index] = player_id_list[index]._id;
             }
-            //console.log(player_id_list);
             let collection = that_client.collection(players_collection_name);
             let search_query = {_id: {$in: player_id_list}};
             return collection.find(search_query).toArray();

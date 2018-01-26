@@ -14,6 +14,7 @@ var players_list = require('./routes/players_list');
 var todo_list = require('./routes/todo_list');
 var users_list = require('./routes/users_list');
 var players = require('./routes/players');
+var search = require('./routes/search');
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use('/players_list', players_list);
 app.use('/todo_list', todo_list);
 app.use('/users_list', users_list);
 app.use('/players', players);
+app.use('/search', search);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
