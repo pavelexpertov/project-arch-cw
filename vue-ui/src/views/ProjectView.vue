@@ -25,7 +25,7 @@
             <h1> {{project.project_title}}</h1>
         </div>
         <div>
-             <to-do-list v-if="todoListId" :todo_list_id="todoListId" :editable_list="userRights.todo_list"></to-do-list>
+             <to-do-list v-if="todoListId" :todo_list_id="todoListId" :editable_list="userRights.todo_list" :users_list_id="usersListId"></to-do-list>
             <item-list v-if="playersListId" :endpoint_name="endpoint" :list_id="playersListId" :editable_list="userRights.players_list"></item-list>
         </div>
     </div>
@@ -44,6 +44,7 @@ export default {
       project: '',
       playersListId: '',
       todoListId: '',
+      usersListId: '',
       endpoint: 'players',
       centerDialogVisible: false,
       userRights: {
@@ -61,12 +62,13 @@ export default {
         this.project = project
         this.playersListId = project.players_list_id
         this.todoListId = project.todo_list_id
+        this.usersListId = project.userswithrights_list_id
         if (project.user_id !== this.$store.state.user_id) {
           let endpoint = 'users_list/' + project.userswithrights_list_id + '/rights/' + this.$store.state.user_id
           return this.$http.get(endpoint)
             .then(response => {
               this.userRights = response.body.edit_rights
-              console.log(this.user_rights)
+              console.log("User rights in proejct view:", this.user_rights)
             })
         }
       })

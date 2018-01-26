@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h3>{{todoTextBox}}</h3>
         <el-input v-model:value="todoTextBox" :disabled="!editable_list">
             <el-button
                 slot="append"
@@ -14,7 +13,7 @@
         style="width: 100%">
             <el-table-column
             label="Completed"
-            width="60">
+            width="100">
                 <template slot-scope="scope">
                 <el-checkbox v-model="scope.row.completed" @change="uploadToDoList"></el-checkbox>
                 </template>
@@ -22,7 +21,7 @@
             <el-table-column
             label="Task"
             prop="title"
-            width="180">
+            width="260">
             </el-table-column>
             <el-table-column
              label="date"
@@ -30,6 +29,22 @@
                 <template slot-scope="scope">
                     <el-date-picker type="date" v-model="scope.row.date" @change="uploadToDoList" :disabled="!editable_list" format="yyyy/MM/dd"  value-format="yyyy-MM-dd">
                     </el-date-picker>
+                </template>
+            </el-table-column>
+            <el-table-column
+            label="Assigned User"
+            width="300"
+            >
+                <template slot-scope="scope">
+                    <el-select v-model="scope.row.user_id" placeholder="Select" clearable>
+                        <el-option
+                        v-for="user in usersList"
+                        :key="user._id"
+                        :label="user.fullname"
+                        :value="user._id"
+                        >
+                        </el-option>
+                    </el-select>
                 </template>
             </el-table-column>
             <el-table-column
@@ -45,7 +60,6 @@
                     </el-button>
                 </template>
             </el-table-column>
-
         </el-table>
         <p>
             {{todoList}}
@@ -65,6 +79,10 @@ export default {
       type: String,
       required: true
   },
+    users_list_id: {
+        type: String,
+        required: true
+    },
     editable_list: {
         type: Boolean,
         default: true
@@ -74,7 +92,9 @@ export default {
     return {
       todoList: [],
       todoListId: this.todo_list_id,
-      todoTextBox: ''
+      usersListId: this.users_list_id,
+      todoTextBox: '',
+      usersList: []
     }
   },
   methods: {
@@ -111,21 +131,34 @@ export default {
     toDoItem: ToDoItem
   },
   mounted: function () {
-    this.$http.get('todo_list/' + this.todoListId)
-        .then(response => {
-          console.log(response)
-          let list = response.body.todo_list
-          this.todoList = list
-        })
-        .catch(err => console.log(err))
+    //Getting a list of users_list and todo list
+    this.$http.get('users_list/' + this.usersListId)
+    .then(response => {
+        let users_list = response.body.users_list
+        users_list.splice(0, 0, {_id: '', fullname: "None"})
+        console.log("I AM HERE")
+        console.log("users_list", users_list)
+        this.usersList = users_list
+        return this.$http.get('todo_list/' + this.todoListId)
+    })
+    .then(response => {
+      console.log(response)
+      let list = response.body.todo_list
+      this.todoList = list
+    })
+    .catch(err => console.log(err))
+
   }
 }
 </script>
 
 <style scoped>
 div {
-    width: 600px;
+    width: 1100px;
     margin: auto;
     background-color: red;
 }
+/*el-select .el-input__inner {
+    width: 300px;
+}*/
 </style>
