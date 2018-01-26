@@ -11,7 +11,7 @@
             <el-row>
                 <el-col :span="8">
                     <el-form-item label="Search Criteria">
-                        <el-radio-group v-model="form.resource">
+                        <el-radio-group v-model="form.search_criteria">
                           <el-radio label="team">Opposition Team</el-radio>
                           <el-radio label="player">Player Name</el-radio>
                         </el-radio-group>
@@ -37,12 +37,14 @@
                 <el-button type="primary" @click="search">Search</el-button>
             </el-form-item>
         </el-form>
+        <project-list :projects_list="project_list" :show_sharing_status="true"></project-list>
     </div>
 </template>
 
 <script>
 /* eslint-disable */
 import {loggedOutMixin} from '@/user_session'
+import ProjectList from '@/components/ProjectsList'
 
 export default {
     name: "SearchView",
@@ -51,7 +53,7 @@ export default {
             project_list: [],
             form: {
                 search_query: '',
-                search_criteria: '',
+                search_criteria: 'player',
                 include_date: false,
                 start_date: '',
                 end_date: ''
@@ -76,6 +78,9 @@ export default {
             })
             .catch(err => console.log(err))
         }
+    },
+    components: {
+        projectList: ProjectList
     }
 }
 </script>

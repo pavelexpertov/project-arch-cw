@@ -1,27 +1,16 @@
 <template>
     <div>
         <h2>My Projects</h2>
-            <router-link
-            v-for="item in ownProjects"
-            :to="'/project/' + item._id"
-            :key="item._id"
-            >
-                <h6>{{item.project_title}}</h6>
-            </router-link>
+            <projects-list :projects_list="ownProjects" :show_sharing_status="false"></projects-list>
         <h2>Shared Projects</h2>
-            <router-link
-            v-for="item in sharedProjects"
-            :to="'/project/' + item._id"
-            :key="item._id"
-            >
-                <h6>{{item.project_title}}</h6>
-            </router-link>
+            <projects-list :projects_list="sharedProjects" :show_sharing_status="false"></projects-list>
     </div>
 </template>
 
 <script>
 /* eslint-disable */
 import {loggedOutMixin} from '@/user_session'
+import ProjectsList from '@/components/ProjectsList'
 
 export default {
   name: 'ProjectsView',
@@ -46,7 +35,10 @@ export default {
   mounted: function () {
       this.getProjectsFromServer()
   },
-  mixins: [loggedOutMixin]
+  mixins: [loggedOutMixin],
+  components: {
+      projectsList: ProjectsList
+  }
 }
 </script>
 
