@@ -24,12 +24,12 @@
                 </el-col>
                 <el-col :span="7">
                     <el-form-item label="Start Date">
-                        <el-date-picker v-model="form.start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd"></el-date-picker>
+                        <el-date-picker v-model="form.start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd" :editable="false" :clearable="false"></el-date-picker>
                     </el-form-item>
                 </el-col>
                 <el-col :span="7">
                     <el-form-item label="End Date">
-                        <el-date-picker v-model="form.end_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd"></el-date-picker>
+                        <el-date-picker v-model="form.end_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd" :editable="false" :clearable="false"></el-date-picker>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -45,6 +45,7 @@
 /* eslint-disable */
 import {loggedOutMixin} from '@/user_session'
 import ProjectList from '@/components/ProjectsList'
+import * as moment from 'moment'
 
 export default {
     name: "SearchView",
@@ -81,6 +82,12 @@ export default {
     },
     components: {
         projectList: ProjectList
+    },
+    created: function(){
+        let start_date = moment().subtract(1, 'M')
+        let end_date = moment().add(1, 'M')
+        this.form.start_date = start_date.format('YYYY-MM-DD')
+        this.form.end_date = end_date.format('YYYY-MM-DD')
     }
 }
 </script>
