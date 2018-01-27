@@ -135,16 +135,34 @@ export default {
     this.$http.get('users_list/' + this.usersListId)
     .then(response => {
         let users_list = response.body.users_list
+        //Add an empty option for None
         users_list.splice(0, 0, {_id: '', fullname: "None"})
-        console.log("I AM HERE")
-        console.log("users_list", users_list)
         this.usersList = users_list
         return this.$http.get('todo_list/' + this.todoListId)
     })
     .then(response => {
-      console.log(response)
       let list = response.body.todo_list
+      //Filtering the todos against the users list to make sure that they are not assigned to them.
+      let length = list.length
+      //For each to do item
+      for(var i = 0; i < length; ++i){
+          let todoItem = list[i]
+          let length = this.usersList.length
+          let userExistsInUsersListFlag = false
+          //For each user in the users list
+          for(var j = 0; j < length; ++j){
+             let user = this.usersList[j]
+             if(user._id === todoItem.user_id){
+                 userExistsInUsersListFlag = true
+                 break
+             }
+          }
+          //If the user doesn't exist in the list
+          if(!userExistsInUsersListFlag)
+            todoItem.user_id = ''
+      }
       this.todoList = list
+      this.uploadToDoList()
     })
     .catch(err => console.log(err))
 

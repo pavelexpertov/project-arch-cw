@@ -42,13 +42,11 @@ export default {
       console.log('search query is', queryString)
       this.$http.get(this.endpointName + '/' + queryString).then(response => {
         let returnedList = response.body.list || response.body
-                // console.log(returnedList);
         var generatedArray = []
         for (var index = 0; index < returnedList.length; ++index) {
           let doc = returnedList[index]
           generatedArray.push({value: doc.name || doc.fullname, selected_item: doc})
         }
-                // console.log("generated array", generatedArray);
         callbackFunction(generatedArray)
       })
       .catch(err => {
