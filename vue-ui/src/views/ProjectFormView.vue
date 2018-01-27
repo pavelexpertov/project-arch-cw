@@ -11,10 +11,10 @@
                 <el-input type="textarea" v-model="form.main_description"></el-input>
             </el-form-item>
             <el-form-item label="Match Start Date" >
-                <el-date-picker type="date" placeholder="Pick a date" v-model="form.match_start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd"></el-date-picker>
+                <el-date-picker type="date" placeholder="Pick a date" v-model="form.match_start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd" :clearable="false" :editable="false"></el-date-picker>
             </el-form-item>
             <el-form-item label="Trip Start Date" >
-                <el-date-picker type="date" placeholder="Pick a date" v-model="form.trip_start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd"></el-date-picker>
+                <el-date-picker type="date" placeholder="Pick a date" v-model="form.trip_start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd" :clearable="false" :editable="false"></el-date-picker>
             </el-form-item>
             <el-form-item>
                 <el-button @click="validateBeforeSubmission('form')">
@@ -40,6 +40,7 @@
 /* eslint-disable */
 import ItemList from '@/components/ItemList'
 import {loggedOutMixin} from '@/user_session'
+import * as moment from 'moment'
 
 export default {
     name: "ProjectFormView",
@@ -83,6 +84,12 @@ export default {
                 this.users_list_id = pr.userswithrights_list_id
             })
             .catch(err => console.log(err))
+        }
+        else{
+            let match_start_date = moment().add(2, 'days')
+            let trip_start_date = moment().add(1, 'days')
+            this.form.match_start_date = match_start_date.format('YYYY-MM-DD')
+            this.form.trip_start_date = trip_start_date.format('YYYY-MM-DD')
         }
     },
     computed: {
