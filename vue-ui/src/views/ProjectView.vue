@@ -11,21 +11,45 @@
             <el-button type="primary" @click="handleDelete">Confirm</el-button>
           </span>
         </el-dialog>
-        <template v-if="isUserProjectOwner">
-        <router-link
-        :to="'/editproject/' + project._id"
-        >
-            <el-button>Edit</el-button>
-        </router-link>
-        <el-button type="danger" @click="centerDialogVisible = true">Delete Plan</el-button>
-    </template>
+
+        <el-row>
+            <el-col :span="isUserProjectOwner?16:24">
+                <h1>Plan: {{project.project_title}}</h1>
+            </el-col>
+            <el-col :span="8">
+                <template v-if="isUserProjectOwner">
+                <router-link
+                :to="'/editproject/' + project._id"
+                >
+                    <el-button>Edit</el-button>
+                </router-link>
+                <el-button type="danger" @click="centerDialogVisible = true">Delete Plan</el-button>
+                </template>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="12">
+                <p>Match Date: {{project.match_start_date}}</p>
+            </el-col>
+            <el-col :span="12">
+                <p>Opposing Team: {{project.opposition_team}}</p>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="12">
+                <p>Trip Date: {{project.trip_start_date}}</p>
+            </el-col>
+            <el-col :span="2">
+                <p>Description:</p>
+            </el-col>
+            <el-col :span="10">
+                <p>{{project.main_description}}</p>
+            </el-col>
+        </el-row>
         <div>
-            <h1> Here's the view of the project</h1>
-            <h1> {{project._id}}</h1>
-            <h1> {{project.project_title}}</h1>
-        </div>
-        <div>
+             <h2>Tasks</h2>
              <to-do-list v-if="todoListId" :todo_list_id="todoListId" :editable_list="userRights.todo_list" :users_list_id="usersListId"></to-do-list>
+             <h2>Selected Players</h2>
             <item-list v-if="playersListId" :endpoint_name="endpoint" :list_id="playersListId" :editable_list="userRights.players_list"></item-list>
         </div>
     </div>
@@ -98,6 +122,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+div el-row{
+    max-width: 1800px;
+}
 </style>
