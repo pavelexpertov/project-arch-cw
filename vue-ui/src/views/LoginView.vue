@@ -1,15 +1,19 @@
 <template>
-  <el-form ref="form" :model="form" :rules="rules" label-width="120px">
-    <el-form-item label="Username" prop="username">
-      <el-input v-model="form.username"></el-input>
-    </el-form-item>
-    <el-form-item label="Password" prop="password">
-      <el-input type="password" v-model="form.password"></el-input>
-    </el-form-item>
-  <el-form-item>
-    <el-button type="primary" @click="validateBeforeSubmission('form')">Login</el-button>
-  </el-form-item>
-  </el-form>
+    <el-row>
+        <el-col :span="9" :offset="8">
+          <el-form ref="form" :model="form" :rules="rules" label-width="120px">
+            <el-form-item label="Username" prop="username">
+              <el-input v-model="form.username"></el-input>
+            </el-form-item>
+            <el-form-item label="Password" prop="password">
+              <el-input type="password" v-model="form.password"></el-input>
+            </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="validateBeforeSubmission('form')">Login</el-button>
+          </el-form-item>
+          </el-form>
+        </el-col>
+    </el-row>
 </template>
 
 <script>

@@ -1,32 +1,36 @@
 <template>
-  <el-form ref="form" :model="form" :rules="rules" label-width="120px">
-    <el-form-item label="Full Name" prop="fullname">
-      <el-input v-model="form.fullname"></el-input>
-    </el-form-item>
-    <el-form-item label="Job Role" prop="job_role">
-    <el-select v-model="form.job_role" placeholder="please select your job role">
-      <el-option label="Manager" value="manager"></el-option>
-      <el-option label="Sport Technician" value="sport_technician"></el-option>
-      <el-option label="Trainer" value="trainer"></el-option>
-    </el-select>
-  </el-form-item>
-    <el-form-item label="Username" prop="username">
-      <el-input v-model="form.username"></el-input>
-    </el-form-item>
-    <el-form-item label="Password" prop="password">
-      <el-input type="password" v-model="form.password"></el-input>
-    </el-form-item>
-    <template v-if="!this.form_obj._id">
-      <el-form-item>
-        <el-button type="primary" @click="validateBeforeSubmission('form', 'post')">Sign Up</el-button>
+<el-row>
+    <el-col :span="12" :offset="6">
+      <el-form ref="form" :model="form" :rules="rules" label-width="120px">
+        <el-form-item label="Full Name" prop="fullname">
+          <el-input v-model="form.fullname"></el-input>
+        </el-form-item>
+        <el-form-item label="Job Role" prop="job_role">
+        <el-select v-model="form.job_role" placeholder="please select your job role">
+          <el-option label="Manager" value="manager"></el-option>
+          <el-option label="Sport Technician" value="sport_technician"></el-option>
+          <el-option label="Trainer" value="trainer"></el-option>
+        </el-select>
       </el-form-item>
-    </template>
-    <template v-else>
-      <el-form-item>
-        <el-button type="primary" @click="validateBeforeSubmission('form', 'put')">Save</el-button>
-      </el-form-item>
-    </template>
-  </el-form>
+        <el-form-item label="Username" prop="username">
+          <el-input v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item label="Password" prop="password">
+          <el-input type="password" v-model="form.password"></el-input>
+        </el-form-item>
+        <template v-if="!this.form_obj._id">
+          <el-form-item>
+            <el-button type="primary" @click="validateBeforeSubmission('form', 'post')">Sign Up</el-button>
+          </el-form-item>
+        </template>
+        <template v-else>
+          <el-form-item>
+            <el-button type="primary" @click="validateBeforeSubmission('form', 'put')">Save</el-button>
+          </el-form-item>
+        </template>
+      </el-form>
+    </el-col>
+</el-row>
 </template>
 
 <script>
@@ -126,5 +130,5 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 </style>
