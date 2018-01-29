@@ -1,38 +1,48 @@
 <template>
     <div>
-        <el-form ref="form" :model="form" :rules="rules" label-width="160px">
-            <el-form-item label="Plan Title" prop="project_title">
-                <el-input v-model="form.project_title"></el-input>
-            </el-form-item>
-            <el-form-item label="Opposition Team" prop="opposition_team">
-                <el-input v-model="form.opposition_team"></el-input>
-            </el-form-item>
-            <el-form-item label="Description">
-                <el-input type="textarea" v-model="form.main_description"></el-input>
-            </el-form-item>
-            <el-form-item label="Match Start Date" >
-                <el-date-picker type="date" placeholder="Pick a date" v-model="form.match_start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd" :clearable="false" :editable="false"></el-date-picker>
-            </el-form-item>
-            <el-form-item label="Trip Start Date" >
-                <el-date-picker type="date" placeholder="Pick a date" v-model="form.trip_start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd" :clearable="false" :editable="false"></el-date-picker>
-            </el-form-item>
-            <el-form-item>
-                <el-button @click="validateBeforeSubmission('form')">
-                    {{btnSaveNameText}}
-                </el-button>
-            </el-form-item>
-            <el-form-item>
-                <el-button @click="cancelBtn">
-                    Cancel
-                </el-button>
-            </el-form-item>
-        </el-form>
-        <item-list
-        v-if="users_list_id"
-        :endpoint_name="endpoint"
-        :list_id="users_list_id"
-        >
-        </item-list>
+        <h1>Edit Project</h1>
+        <el-row>
+            <el-col :span="8" :offset="8">
+                <el-form ref="form" :model="form" :rules="rules" label-width="160px">
+                    <el-form-item label="Plan Title" prop="project_title">
+                        <el-input v-model="form.project_title"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Opposition Team" prop="opposition_team">
+                        <el-input v-model="form.opposition_team"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Description">
+                        <el-input type="textarea" v-model="form.main_description"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Match Start Date" >
+                        <el-date-picker type="date" placeholder="Pick a date" v-model="form.match_start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd" :clearable="false" :editable="false"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="Trip Start Date" >
+                        <el-date-picker type="date" placeholder="Pick a date" v-model="form.trip_start_date" format="yyyy/MM/dd"  value-format="yyyy-MM-dd" :clearable="false" :editable="false"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button @click="validateBeforeSubmission('form')">
+                            {{btnSaveNameText}}
+                        </el-button>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button @click="cancelBtn">
+                            Cancel
+                        </el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+        <h1 v-if="users_list_id">List of Invited Users</h1>
+        <el-row>
+            <el-col :span="8" :offset="8">
+                <item-list
+                v-if="users_list_id"
+                :endpoint_name="endpoint"
+                :list_id="users_list_id"
+                >
+                </item-list>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
