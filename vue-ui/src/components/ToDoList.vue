@@ -1,5 +1,17 @@
 <template>
     <div>
+        <el-row id="filter-list">
+            <el-col :span="24">
+                <el-select v-model="selectedFilter" @change="handleSelectedFilter">
+                    <el-option
+                    v-for="user in usersListDropDownList"
+                    :key="user._id"
+                    :label="user.fullname"
+                    :value="user._id">
+                    </el-option>
+                </el-select>
+            </el-col>
+        </el-row>
         <el-input v-model:value="todoTextBox" :disabled="!editable_list">
             <el-button
                 slot="append"
@@ -64,7 +76,7 @@
         <p>
             {{todoList}}
         </p>
-        </div>
+    </div>
 </template>
 
 <script>
@@ -91,10 +103,13 @@ export default {
   data: function () {
     return {
       todoList: [],
+      todoListOriginal: [],
       todoListId: this.todo_list_id,
       usersListId: this.users_list_id,
       todoTextBox: '',
-      usersList: []
+      usersList: [],
+      usersListDropDownList: [],
+      selectedFilter: 'all'
     }
   },
   methods: {
@@ -125,7 +140,15 @@ export default {
       let newArray = this.todoList.filter(item => item !== itemToDelete)
       this.todoList = newArray
       this.uploadToDoList()
-    }
+  },
+  handleSelectedFilter: function(){
+      if(this.selectedFilter === 'all')
+        this.todoList = this.todoListOriginal
+      else {
+          let new_list = this.todoListOriginal.filter(todo => todo.user_id === this.selectedFilter)
+          this.todoList = new_list
+      }
+  }
   },
   components: {
     toDoItem: ToDoItem
@@ -134,10 +157,14 @@ export default {
     //Getting a list of users_list and todo list
     this.$http.get('users_list/' + this.usersListId)
     .then(response => {
-        let users_list = response.body.users_list
+        let usersList = response.body.users_list
         //Add an empty option for None
-        users_list.splice(0, 0, {_id: '', fullname: "None"})
-        this.usersList = users_list
+        usersList.splice(0, 0, {_id: '', fullname: "None"})
+        this.usersList = usersList
+        //Clone the list and then add an option for all
+        let dropdownUsersList = JSON.parse(JSON.stringify(usersList))
+        dropdownUsersList.splice(0, 0, {_id: 'all', fullname: "All"})
+        this.usersListDropDownList = dropdownUsersList
         return this.$http.get('todo_list/' + this.todoListId)
     })
     .then(response => {
@@ -162,6 +189,7 @@ export default {
             todoItem.user_id = ''
       }
       this.todoList = list
+      this.todoListOriginal = list
       this.uploadToDoList()
     })
     .catch(err => console.log(err))
@@ -176,7 +204,7 @@ div {
     margin: auto;
     background-color: red;
 }
-/*el-select .el-input__inner {
-    width: 300px;
-}*/
+#filter-list {
+    margin-bottom: 23px;
+}
 </style>
