@@ -1,7 +1,18 @@
 <template>
     <div>
+        <el-input v-model:value="todoTextBox" :disabled="!editable_list">
+            <el-button
+                slot="append"
+                icon="el-icon-circle-plus"
+                :disabled="!editable_list"
+                @click="addToDo"
+            ></el-button>
+        </el-input>
         <el-row id="filter-list">
-            <el-col :span="24">
+            <el-col :span="6" :offset="4">
+                <p>Filter tasks by Assigned User: </p>
+            </el-col>
+            <el-col :span="3">
                 <el-select v-model="selectedFilter" @change="handleSelectedFilter">
                     <el-option
                     v-for="user in usersListDropDownList"
@@ -12,70 +23,63 @@
                 </el-select>
             </el-col>
         </el-row>
-        <el-input v-model:value="todoTextBox" :disabled="!editable_list">
-            <el-button
-                slot="append"
-                icon="el-icon-circle-plus"
-                :disabled="!editable_list"
-                @click="addToDo"
-            ></el-button>
-        </el-input>
-        <el-table
-        :data="todoList"
-        style="width: 100%">
-            <el-table-column
-            label="Completed"
-            width="100">
-                <template slot-scope="scope">
-                <el-checkbox v-model="scope.row.completed" @change="uploadToDoList" :disabled="scope.row.user_id !== $store.state.user_id && !editable_list"></el-checkbox>
-                </template>
-            </el-table-column>
-            <el-table-column
-            label="Task"
-            prop="title"
-            width="260">
-            </el-table-column>
-            <el-table-column
-             label="date"
-             width="180">
-                <template slot-scope="scope">
-                    <el-date-picker type="date" v-model="scope.row.date" @change="uploadToDoList" :disabled="!editable_list" format="yyyy/MM/dd"  value-format="yyyy-MM-dd" :editable="false">
-                    </el-date-picker>
-                </template>
-            </el-table-column>
-            <el-table-column
-            label="Assigned User"
-            width="300"
-            >
-                <template slot-scope="scope">
-                    <el-select v-model="scope.row.user_id" placeholder="Select" clearable :disabled="!editable_list" @change="uploadToDoList">
-                        <el-option
-                        v-for="user in usersList"
-                        :key="user._id"
-                        :label="user.fullname"
-                        :value="user._id"
-                        >
-                        </el-option>
-                    </el-select>
-                </template>
-            </el-table-column>
-            <el-table-column
-            label="Operations"
-            width="130">
-                <template slot-scope="scope">
-                    <el-button
-                    size="mini"
-                    type="danger"
-                    :disabled="!editable_list"
-                    @click="deleteItem(scope.row)">
-                    Remove
-                    </el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <p>
-            {{todoList}}
-        </p>
+        <el-row id="todo-list">
+            <el-col :span="24">
+                <el-table
+                :data="todoList"
+                style="width: 100%">
+                    <el-table-column
+                    label="Completed"
+                    width="100">
+                        <template slot-scope="scope">
+                        <el-checkbox v-model="scope.row.completed" @change="uploadToDoList" :disabled="scope.row.user_id !== $store.state.user_id && !editable_list"></el-checkbox>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                    label="Task"
+                    prop="title"
+                    width="260">
+                    </el-table-column>
+                    <el-table-column
+                     label="date"
+                     width="180">
+                        <template slot-scope="scope">
+                            <el-date-picker type="date" v-model="scope.row.date" @change="uploadToDoList" :disabled="!editable_list" format="yyyy/MM/dd"  value-format="yyyy-MM-dd" :editable="false">
+                            </el-date-picker>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                    label="Assigned User"
+                    width="300"
+                    >
+                        <template slot-scope="scope">
+                            <el-select v-model="scope.row.user_id" placeholder="Select" clearable :disabled="!editable_list" @change="uploadToDoList">
+                                <el-option
+                                v-for="user in usersList"
+                                :key="user._id"
+                                :label="user.fullname"
+                                :value="user._id"
+                                >
+                                </el-option>
+                            </el-select>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                    label="Operations"
+                    width="130">
+                        <template slot-scope="scope">
+                            <el-button
+                            size="mini"
+                            type="danger"
+                            :disabled="!editable_list"
+                            @click="deleteItem(scope.row)">
+                            Remove
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
@@ -200,11 +204,18 @@ export default {
 
 <style scoped>
 div {
-    width: 1100px;
-    margin: auto;
-    background-color: red;
+    /*width: 1100px;*/
+    /*margin: auto;
+    background-color: red;*/
 }
 #filter-list {
-    margin-bottom: 23px;
+    width: 1100px;
+    margin: auto;
+    margin-top: 23px;
+    margin-bottom: 8px;
+}
+#todo-list {
+    width: 1100px;
+    margin: auto;
 }
 </style>
