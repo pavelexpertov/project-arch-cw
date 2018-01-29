@@ -1,18 +1,20 @@
 <template>
-    <el-row>
-        <el-col :span="8"><p>{{fullname}}</p></el-col>
+    <div class="item">
+    <el-row >
+        <el-col :span="8"><p class="item-margin">{{fullname}}</p></el-col>
         <el-col :span="4">
-            <p>
-                <el-checkbox v-model="userObj.edit_rights.players_list" @change="updateUser">Players List</el-checkbox>
+            <p class="item-margin">
+                <el-checkbox  v-model="userObj.edit_rights.players_list" @change="updateUser">Players List</el-checkbox>
             </p>
         </el-col>
         <el-col :span="4">
-            <p><el-checkbox v-model="userObj.edit_rights.todo_list" @change="updateUser">ToDo List</el-checkbox></p>
+            <p class="item-margin"><el-checkbox v-model="userObj.edit_rights.todo_list" @change="updateUser">ToDo List</el-checkbox></p>
         </el-col>
         <el-col :span="8">
             <p><el-button type="danger" @click="deleteUser" size="mini">Remove</el-button></p>
         </el-col>
     </el-row>
+    </div>
 </template>
 
 <script>
@@ -46,4 +48,11 @@ export default {
 </script>
 
 <style scoped>
+.item {
+    border: 2px solid grey;
+    margin-bottom: 2px;
+}
+.item-margin {
+    margin-top: 20px;
+}
 </style>

@@ -1,8 +1,10 @@
 <template>
+    <div class="item">
     <el-row>
         <el-col :span="15"><p>{{name}}</p></el-col>
-        <el-col :span="9"><el-button @click="deletePlayer" type="danger" :disabled="!editable">Remove</el-button></el-col>
+        <el-col :span="9"><el-button @click="deletePlayer" type="danger" :disabled="!editable" class="button">Remove</el-button></el-col>
     </el-row>
+    </div>
 </template>
 
 <script>
@@ -32,6 +34,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.item {
+    border: 2px solid grey;
+    margin-bottom: 2px;
+}
+.button {
+    margin-top: 6px;
+}
 </style>

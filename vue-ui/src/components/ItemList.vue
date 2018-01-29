@@ -4,6 +4,7 @@
          :endpoint_name="endpointName"
          :editable_box="this.editable_list"
          @selectItem="item => handleSelectedItem(item)"
+         class="text-box"
          >
         </text-box>
         <div>
@@ -130,6 +131,9 @@ export default {
 div {
     margin: auto;
     width: 600px;
-    background-color: yellow;
+    background-color: #d3d3d3;
+}
+.text-box {
+    margin-bottom: 5px;
 }
 </style>
