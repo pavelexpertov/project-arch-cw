@@ -26,10 +26,11 @@ let todo_schema = {
             title: { type: "string", minLength: 1},
             completed: { type: "boolean" },
             id: { type: "string", minLength: 1 },
-            date: { type: "string", minLength: 1 }
+            date: { type: "string", minLength: 1 },
+            user_id: { type: "string", minLength: 1 }
         },
         additionalProperties: false,
-        required: ['title', 'completed', 'id', 'date']
+        required: ['title', 'completed', 'id', 'date', 'user_id']
     }
 }
 
