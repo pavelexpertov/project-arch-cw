@@ -5,7 +5,8 @@
         >
             <el-table-column
             prop="project_title"
-            label="Project Title"
+            label="Plan Title"
+            align="left"
             width="210"
             >
             </el-table-column>

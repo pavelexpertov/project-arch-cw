@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h1>Edit Project</h1>
+        <h1 v-if="users_list_id">Edit Plan</h1>
+        <h1 v-else="users_list_id">Add New Plan</h1>
         <el-row>
             <el-col :span="8" :offset="8">
                 <el-form ref="form" :model="form" :rules="rules" label-width="160px">

@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h2>My Projects</h2>
+        <h2>My Plans</h2>
             <projects-list :projects_list="ownProjects" :show_sharing_status="false"></projects-list>
-        <h2>Shared Projects</h2>
+        <h2>Shared Plans</h2>
             <projects-list :projects_list="sharedProjects" :show_sharing_status="false"></projects-list>
     </div>
 </template>

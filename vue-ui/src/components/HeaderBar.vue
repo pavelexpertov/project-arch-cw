@@ -9,7 +9,7 @@
         </router-link>
         <router-link to="/projects">
             <el-menu-item index="2">
-              My Projects
+              My Plans
             </el-menu-item>
         </router-link>
         <router-link to="/search">

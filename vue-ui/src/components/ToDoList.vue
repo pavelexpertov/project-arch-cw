@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-input v-model:value="todoTextBox" :disabled="!editable_list">
+        <el-input v-model:value="todoTextBox" :disabled="!editable_list" style="width: 400px">
             <el-button
                 slot="append"
                 icon="el-icon-circle-plus"
@@ -38,7 +38,8 @@
                     <el-table-column
                     label="Task"
                     prop="title"
-                    width="260">
+                    width="260"
+                    align="left">
                     </el-table-column>
                     <el-table-column
                      label="date"
