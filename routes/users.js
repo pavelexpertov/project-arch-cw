@@ -1,15 +1,11 @@
 var users_ops = require('../db/users_ops');
 var handleError = require('./error_handler');
 var express = require('express');
+var getMiddlewareValidator = require('../util/json_validator');
 var router = express.Router();
 var user_session = require('../util/user_session');
 
 router.use(user_session.checkUserIdSessionMiddleware);
-
-/* GET users listing. */
-/*router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});*/
 
 /*Returns an object that contains two lists:
 one for projects that the user owns
@@ -44,8 +40,20 @@ router.get("/id/:user_id", (req, res) => {
   .catch(err => handleError(err, res));
 })
 
+let user_json_schema = {
+  "type": "object",
+  "properties": {
+    fullname: { type: "string", minLength: 1 },
+    username: { type: "string", minLength: 1 },
+    job_role: { type: "string", minLength: 1 },
+    password: { type: "string", minLength: 1 }
+  },
+  additionalProperties: false,
+  required: ['fullname', 'username', 'job_role', 'password']
+}
+
 /*Update user's details*/
-router.put("/id/:user_id", (req, res) => {
+router.put("/id/:user_id", getMiddlewareValidator(user_json_schema), (req, res) => {
   let user_id = req.param('user_id');
   let user_doc = req.body;
   users_ops.updateUserAccountByUserId(user_id, user_doc)
