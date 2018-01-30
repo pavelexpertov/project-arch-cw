@@ -193,6 +193,7 @@ function deleteUserAccountByUserId(user_id){
             return collection.deleteOne(search_query);
         })
         .then(result =>{
+            if(result.deletedCount !== 1) reject({code: 404, message: "User could not be found"});
             resolve({ok: true, message: 'Successfully deleted the user account'});
         })
         .catch(err => reject(err))

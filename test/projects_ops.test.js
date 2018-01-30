@@ -10,7 +10,7 @@ suite("getProjectByProjectIdQ database function", () => {
         return projects_ops.getProjectByProjectIdQ(test_project_id)
         .then(function(resultDoc) {
             assert.equal(test_project_id, resultDoc._id, "The project ID doesn't match")
-            assert.hasAllKeys(resultDoc, ['_id', 'user_id', 'project_title', 'main_description', 'opposition_team', 'match_start_date', 'trip_start_date', 'todo_list_id', 'players_list_id', 'userswithrights_list_id'])
+            assert.hasAllKeys(resultDoc, ['_id', 'user_id', 'project_title', 'main_description', 'opposition_team', 'match_start_date', 'trip_start_date', 'todo_list_id', 'players_list_id', 'userswithrights_list_id'], "Key(s) don't exist in the object")
         })
     })
     test("Get a project doc unsuccessfully", () => {
@@ -66,9 +66,8 @@ suite("updateProjectByProjectIdQ database function", () => {
     test("Update a project unsuccessfully", () => {
         return projects_ops.updateProjectByProjectIdQ(test_false_project_id, test_project_dummy_update)
         .catch(err => {
-            console.log("message", err)
-            //assert.equal("dfdf", err.message, "Error message does not match")
-            assert.isTrue(err, "It's not false but it's a test " + err)
+            assert.equal(404, err.code, "Error code doesn't match")
+            assert.equal("The project doc of " + test_false_project_id + " does not exist", err.message, "Error message does not match")
         })
     })
     after("Restoring the project after testing", () => {
