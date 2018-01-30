@@ -3,12 +3,23 @@ router that are responsible for the user authentication and user creation*/
 
 var user_db = require('../db/user_management_auth');
 var handleError = require('./error_handler');
+var getMiddlewareValidator = require('../util/json_validator');
 var express = require('express');
 var router = express.Router();
 var user_session = require('../util/user_session')
 
+let login_schema = {
+    id: 'login_schema',
+    type: "object",
+    properties: {
+        username: { type: "string", minLength: 1 },
+        password: { type: "string", minLength: 1 }
+    },
+    additionalProperties: false,
+    required: ['username', 'password']
+}
 
-router.post('/login', (req, res) => {
+router.post('/login', getMiddlewareValidator(login_schema), (req, res) => {
     let obj = req.body;
     user_db.isUserLoginValidQ(obj.username, obj.password)
     .then(user_id => {
@@ -21,9 +32,21 @@ router.post('/login', (req, res) => {
     .done();
 });
 
-router.post('/signup', (req, res) => {
+let signup_schema = {
+    id: 'signup_schema',
+    type: 'object',
+    properties: {
+        username: { type: "string", minLength: 1 },
+        password: { type: "string", minLength: 1 },
+        job_role: { enum: ["manager", "trainer", "sport_technician"]},
+        fullname: { type: "string", minLength: 1 },
+    },
+    additionalProperties: false,
+    required: ['username', 'password', 'job_role', 'fullname']
+}
+
+router.post('/signup', getMiddlewareValidator(signup_schema), (req, res) => {
     let obj = req.body;
-    //console.log(obj);
     let promise = user_db.signUpUserQ(obj.username, obj.password, obj.fullname, obj.job_role);
     promise.then(result => {
         res.json({ok: true});

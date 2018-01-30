@@ -45,7 +45,7 @@ let user_json_schema = {
   "properties": {
     fullname: { type: "string", minLength: 1 },
     username: { type: "string", minLength: 1 },
-    job_role: { type: "string", minLength: 1 },
+    job_role: { enum: ["manager", "trainer", "sport_technician"]},
     password: { type: "string", minLength: 1 }
   },
   additionalProperties: false,
