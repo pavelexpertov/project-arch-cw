@@ -31,7 +31,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import TextBox from '@/components/TextBox'
 import PlayerItem from '@/components/PlayerItem'
 import UserItem from '@/components/UserItem'
@@ -46,11 +45,11 @@ export default {
     list_id: {
       type: String,
       required: true
-      },
-      editable_list: {
-          type: Boolean,
-          default: true
-      }
+    },
+    editable_list: {
+      type: Boolean,
+      default: true
+    }
   },
   data: function () {
     return {
@@ -63,8 +62,8 @@ export default {
     handleSelectedItem: function (selectedItem) {
       console.log('hey guess what, I got the selected item!!', selectedItem)
       selectedItem = selectedItem.selected_item
-      //If it's a user's list, then check that the owner didn't add himself
-      if(this.$store.state.user_id === selectedItem._id) return;
+      // If it's a user's list, then check that the owner didn't add himself
+      if (this.$store.state.user_id === selectedItem._id) return
       let notDuplicateItem = true
       let length = this.item_list.length
       for (var index = 0; index < length; ++index) {

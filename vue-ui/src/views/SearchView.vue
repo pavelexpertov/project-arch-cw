@@ -42,53 +42,54 @@
 </template>
 
 <script>
-/* eslint-disable */
 import {loggedOutMixin} from '@/user_session'
 import ProjectList from '@/components/ProjectsList'
 import * as moment from 'moment'
 
 export default {
-    name: "SearchView",
-    data: function() {
-        return {
-            project_list: [],
-            form: {
-                search_query: '',
-                search_criteria: 'player',
-                include_date: false,
-                start_date: '',
-                end_date: ''
-            }
-        }
-    },
-    mixins: [loggedOutMixin],
-    methods: {
-        search: function(){
+  name: 'SearchView',
+  data: function () {
+    return {
+      project_list: [],
+      form: {
+        search_query: '',
+        search_criteria: 'player',
+        include_date: false,
+        start_date: '',
+        end_date: ''
+      }
+    }
+  },
+  mixins: [loggedOutMixin],
+  methods: {
+    search: function () {
             // Check if the query is empty
-            let form = this.form
-            if(form.search_query === '') return
+      let form = this.form
+      if (form.search_query === '') return
             // Check that the dates are selected and are in correct format
-            if(form.include_date){
-                //Checking that they are not empty
-                if(form.start_date === null || form.end_date === null) return
-                if(form.start_date === '' || form.end_date === '') return
-            }
-            this.$http.post('search', this.form)
+      if (form.include_date) {
+                // Checking that they are not empty
+        if (form.start_date === null || form.end_date === null) return
+        if (form.start_date === '' || form.end_date === '') return
+      }
+      this.$http.post('search', this.form)
             .then(result => {
-                this.project_list = result.body
+              this.project_list = result.body
             })
             .catch(err => console.log(err))
-        }
-    },
-    components: {
-        projectList: ProjectList
-    },
-    created: function(){
-        let start_date = moment().subtract(1, 'M')
-        let end_date = moment().add(1, 'M')
-        this.form.start_date = start_date.format('YYYY-MM-DD')
-        this.form.end_date = end_date.format('YYYY-MM-DD')
     }
+  },
+  components: {
+    projectList: ProjectList
+  },
+  created: function () {
+    // eslint-disable-next-line
+    let start_date = moment().subtract(1, 'M')
+    // eslint-disable-next-line
+    let end_date = moment().add(1, 'M')
+    this.form.start_date = start_date.format('YYYY-MM-DD')
+    this.form.end_date = end_date.format('YYYY-MM-DD')
+  }
 }
 </script>
 

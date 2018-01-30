@@ -3,7 +3,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import UserForm from '@/components/UserForm'
 import {loggedInMixin} from '@/user_session'
 
@@ -14,7 +13,7 @@ export default {
   },
   mixins: [loggedInMixin],
   components: {
-      userForm: UserForm
+    userForm: UserForm
   }
 }
 </script>

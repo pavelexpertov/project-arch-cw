@@ -56,7 +56,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import ToDoList from '@/components/ToDoList'
 import ItemList from '@/components/ItemList'
 import {loggedOutMixin} from '@/user_session'
@@ -92,7 +91,7 @@ export default {
           return this.$http.get(endpoint)
             .then(response => {
               this.userRights = response.body.edit_rights
-              console.log("User rights in proejct view:", this.user_rights)
+              console.log('User rights in proejct view:', this.user_rights)
             })
         }
       })
@@ -109,15 +108,14 @@ export default {
   },
   mixins: [loggedOutMixin],
   methods: {
-      handleDelete: function() {
-        let projectId = this.$route.params.project_id
-        this.$http.delete('projects/' + projectId)
+    handleDelete: function () {
+      let projectId = this.$route.params.project_id
+      this.$http.delete('projects/' + projectId)
         .then(response => {
-            if(response.body.ok === true)
-                this.$router.push({name: 'Projects'})
+          if (response.body.ok === true) { this.$router.push({name: 'Projects'}) }
         })
         .catch(err => console.log(err))
-      }
+    }
   }
 }
 </script>

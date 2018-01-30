@@ -48,115 +48,117 @@
 </template>
 
 <script>
-/* eslint-disable */
 import ItemList from '@/components/ItemList'
 import {loggedOutMixin} from '@/user_session'
 import * as moment from 'moment'
 
 export default {
-    name: "ProjectFormView",
-    data: function(){
-        return {
-            form: {
-                project_title: '',
-                main_description: '',
-                opposition_team: '',
-                match_start_date: '',
-                trip_start_date:''
-            },
-            project_id: '',
-            users_list_id: '',
-            endpoint: "users",
-            rules: {
-                project_title: [
+  name: 'ProjectFormView',
+  data: function () {
+    return {
+      form: {
+        project_title: '',
+        main_description: '',
+        opposition_team: '',
+        match_start_date: '',
+        trip_start_date: ''
+      },
+      project_id: '',
+      users_list_id: '',
+      endpoint: 'users',
+      rules: {
+        project_title: [
                     {required: true, message: 'Enter project title'}
-                ],
-                opposition_team: [
+        ],
+        opposition_team: [
                     {required: true, message: 'Enter name of an opposition team'}
-                ],
-                match_start_date: [
+        ],
+        match_start_date: [
                     { type: 'date', required: true, message: 'Please pick a date', trigger: 'change' }
-                ],
-                trip_start_date: [
+        ],
+        trip_start_date: [
                     { type: 'date', required: true, message: 'Please pick a date', trigger: 'change' }
-                ]
-            }
-        }
-    },
-    created: function(){
-        let project_id = this.$route.params.project_id
-        if(project_id){
-            this.$http.get("projects/" + project_id)
+        ]
+      }
+    }
+  },
+  created: function () {
+    // eslint-disable-next-line
+    let project_id = this.$route.params.project_id
+    // eslint-disable-next-line
+    if (project_id) {
+      // eslint-disable-next-line
+      this.$http.get('projects/' + project_id)
             .then(response => {
-                //pr is the project json
-                let pr = response.body
-                this.project_id = pr._id
-                this.form = pr
-                this.users_list_id = pr.userswithrights_list_id
+                // pr is the project json
+              let pr = response.body
+              this.project_id = pr._id
+              this.form = pr
+              this.users_list_id = pr.userswithrights_list_id
             })
             .catch(err => console.log(err))
-        }
-        else{
-            let match_start_date = moment().add(2, 'days')
-            let trip_start_date = moment().add(1, 'days')
-            this.form.match_start_date = match_start_date.format('YYYY-MM-DD')
-            this.form.trip_start_date = trip_start_date.format('YYYY-MM-DD')
-        }
+    } else {
+      // eslint-disable-next-line
+      let match_start_date = moment().add(2, 'days')
+      // eslint-disable-next-line
+      let trip_start_date = moment().add(1, 'days')
+      this.form.match_start_date = match_start_date.format('YYYY-MM-DD')
+      this.form.trip_start_date = trip_start_date.format('YYYY-MM-DD')
+    }
+  },
+  computed: {
+    btnSaveNameText: function () {
+      return this.project_id ? 'Save' : 'Add'
+    }
+  },
+  methods: {
+    cancelBtn () {
+      this.$router.back()
     },
-    computed: {
-        btnSaveNameText: function(){
-            return this.project_id?'Save' : 'Add'
-        }
-    },
-    methods:{
-        cancelBtn(){
-            this.$router.back()
-        },
-        saveBtn(){
-            //Collecting details
-            let details = {
-                project_title: this.form.project_title,
-                main_description: this.form.main_description,
-                opposition_team: this.form.opposition_team,
-                match_start_date: this.form.match_start_date,
-                trip_start_date: this.form.trip_start_date,
-                user_id: this.$store.state.user_id
-            }
-            console.log(details)
-            if(this.project_id){
-                delete details.user_id
-                var endpoint = "projects/" + this.project_id
-                this.$http.put(endpoint, details)
+    saveBtn () {
+            // Collecting details
+      let details = {
+        project_title: this.form.project_title,
+        main_description: this.form.main_description,
+        opposition_team: this.form.opposition_team,
+        match_start_date: this.form.match_start_date,
+        trip_start_date: this.form.trip_start_date,
+        user_id: this.$store.state.user_id
+      }
+      console.log(details)
+      if (this.project_id) {
+        delete details.user_id
+        var endpoint = 'projects/' + this.project_id
+        this.$http.put(endpoint, details)
                 .then(response => {
-                    this.$router.back()
+                  this.$router.back()
                 })
                 .catch(err => console.log(err))
-            }
-            else{
-                var endpoint = "projects"
-                this.$http.post(endpoint, details)
+      } else {
+        // eslint-disable-next-line
+        var endpoint = 'projects'
+        this.$http.post(endpoint, details)
                 .then(response => {
-                    this.$router.push("project/" + response.body.id)
+                  this.$router.push('project/' + response.body.id)
                 })
                 .catch(err => console.log(err))
-
-            }
-        },
-        validateBeforeSubmission: function(formName) {
-          this.$refs[formName].validate((valid) => {
-            if (valid) {
-                this.saveBtn()
-            } else {
-              console.log('error submit!!');
-              return false;
-            }
-          });
       }
     },
-    components: {
-        itemList: ItemList
-    },
-    mixins: [loggedOutMixin]
+    validateBeforeSubmission: function (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.saveBtn()
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    }
+  },
+  components: {
+    itemList: ItemList
+  },
+  mixins: [loggedOutMixin]
 }
 </script>
 

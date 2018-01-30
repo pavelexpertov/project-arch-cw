@@ -34,99 +34,95 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
-    name: "UserForm",
-    props: {
-        form_obj: {
-            type: Object,
-            default: function(){
-                return {
-                    fullname: '',
-                    job_role: '',
-                    username: '',
-                    password: ''
-                }
-            }
-        }
-    },
-    data: function(){
+  name: 'UserForm',
+  props: {
+    form_obj: {
+      type: Object,
+      default: function () {
         return {
-            form: this.form_obj,
-            rules: {
-                fullname: [
-                    {required: true, message: 'Enter full name'}
-                ],
-                username: [
-                    {required: true, message: 'Enter username'}
-                ],
-                password: [
-                    {required: true, message: 'Enter password'}
-                ],
-                job_role: [
-                    { required: true, message: 'Select a job role', trigger: 'change' }
-                ]
-            }
+          fullname: '',
+          job_role: '',
+          username: '',
+          password: ''
         }
-    },
-    methods: {
-        onSubmitPost: function () {
-          console.log('submit for signup!' + ' ' + this.form.username + ' ' + this.form.password)
-          let details = {
-              fullname: this.form.fullname,
-              job_role: this.form.job_role,
-              username: this.form.username,
-              password: this.form.password,
-          }
-          this.$http.post("signup", details)
-          .then(response => {
-              if(response.body.ok === true){
-                  this.$router.push({name: 'Login'})
-              }
-          })
-          .catch(err => {
-              console.log(err)
-              this.$notify.error({
-                  title: "From Server",
-                  message: err.body
-              })
-          })
-      },
-        onSubmitPut: function () {
-          console.log('submit for updating!' + ' ' + this.form.username + ' ' + this.form.password)
-          delete this.form._id
-          let details = this.form
-          console.log(details)
-          this.$http.put("users/id/" + this.$store.state.user_id, details)
-          .then(response => {
-              if(response.body.ok === true){
-                  this.$router.push({name: 'Projects'})
-              }
-          })
-          .catch(err => {
-              console.log(err)
-              this.$notify.error({
-                  title: "From Server",
-                  message: err.body
-              })
-          })
-      },
-      validateBeforeSubmission: function(formName, method_name) {
-          this.$refs[formName].validate((valid) => {
-            if (valid) {
-                if(method_name === 'post')
-                    this.onSubmitPost()
-                else if(method_name === 'put')
-                    this.onSubmitPut()
-                else
-                    console.log("Selected a wrong method!!!")
-            } else {
-              console.log('error submit!!');
-              return false;
-            }
-          });
       }
     }
+  },
+  data: function () {
+    return {
+      form: this.form_obj,
+      rules: {
+        fullname: [
+                    {required: true, message: 'Enter full name'}
+        ],
+        username: [
+                    {required: true, message: 'Enter username'}
+        ],
+        password: [
+                    {required: true, message: 'Enter password'}
+        ],
+        job_role: [
+                    { required: true, message: 'Select a job role', trigger: 'change' }
+        ]
+      }
+    }
+  },
+  methods: {
+    onSubmitPost: function () {
+      console.log('submit for signup!' + ' ' + this.form.username + ' ' + this.form.password)
+      let details = {
+        fullname: this.form.fullname,
+        job_role: this.form.job_role,
+        username: this.form.username,
+        password: this.form.password
+      }
+      this.$http.post('signup', details)
+          .then(response => {
+            if (response.body.ok === true) {
+              this.$router.push({name: 'Login'})
+            }
+          })
+          .catch(err => {
+            console.log(err)
+            this.$notify.error({
+              title: 'From Server',
+              message: err.body
+            })
+          })
+    },
+    onSubmitPut: function () {
+      console.log('submit for updating!' + ' ' + this.form.username + ' ' + this.form.password)
+      delete this.form._id
+      let details = this.form
+      console.log(details)
+      this.$http.put('users/id/' + this.$store.state.user_id, details)
+          .then(response => {
+            if (response.body.ok === true) {
+              this.$router.push({name: 'Projects'})
+            }
+          })
+          .catch(err => {
+            console.log(err)
+            this.$notify.error({
+              title: 'From Server',
+              message: err.body
+            })
+          })
+    },
+    // eslint-disable-next-line
+    validateBeforeSubmission: function (formName, method_name) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+            // eslint-disable-next-line
+          if (method_name === 'post') { this.onSubmitPost() } else if (method_name === 'put') { this.onSubmitPut() } else { console.log('Selected a wrong method!!!') }
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    }
+  }
 }
 </script>
 

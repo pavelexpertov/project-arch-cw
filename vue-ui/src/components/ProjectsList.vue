@@ -52,36 +52,39 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
-    name: "ProjectsList",
-    props: {
-        projects_list: {
-            type: Array,
-            required: true
-        },
-        show_sharing_status: {
-            type: Boolean,
-            required: true
-        }
+  name: 'ProjectsList',
+  props: {
+    projects_list: {
+      type: Array,
+      required: true
     },
-    methods: {
-        get_sharing_status: function(owner_id, userswithrights_list_id, project_doc){
-            //If it's the owner
-            if(this.$store.state.user_id === owner_id)
-                return "Owned by You"
-            //Getting the user rights
-            let endpoint = 'users_list/' + userswithrights_list_id + '/rights/' + this.$store.state.user_id
-            this.$http.get(endpoint)
-            .then(response => {
-                //project_doc.rights = "Shared with you"
-                this.$set(project_doc, 'rights', "Shared with you")
-            })
-            .catch(err => {
-                this.$set(project_doc, 'rights', "Not shared with you")
-            })
-        }
+    show_sharing_status: {
+      type: Boolean,
+      required: true
     }
+  },
+  methods: {
+    // eslint-disable-next-line
+    get_sharing_status: function (owner_id, userswithrights_list_id, project_doc) {
+            // If it's the owner
+    // eslint-disable-next-line
+      if (this.$store.state.user_id === owner_id) { return 'Owned by You' }
+            // Getting the user rights
+    // eslint-disable-next-line
+      let endpoint = 'users_list/' + userswithrights_list_id + '/rights/' + this.$store.state.user_id
+      this.$http.get(endpoint)
+            .then(response => {
+                // project_doc.rights = "Shared with you"
+    // eslint-disable-next-line
+              this.$set(project_doc, 'rights', 'Shared with you')
+            })
+    // eslint-disable-next-line
+            .catch(err => {
+              this.$set(project_doc, 'rights', 'Not shared with you')
+            })
+    }
+  }
 }
 </script>
 

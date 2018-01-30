@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/views/LoginView'
@@ -49,21 +47,21 @@ export default new Router({
       path: '/addproject',
       name: 'ProjectForm',
       component: ProjectForm
-  },
-  {
+    },
+    {
       path: '/editproject/:project_id',
       name: 'ProjectEditForm',
       component: ProjectForm
-  },
-  {
+    },
+    {
       path: '/user',
       name: 'UserAccountView',
       component: UserAccountView
-  },
-  {
+    },
+    {
       path: '/search',
       name: 'SearchView',
       component: SearchView
-  }
+    }
   ]
 })

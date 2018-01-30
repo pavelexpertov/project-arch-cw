@@ -12,31 +12,30 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
   name: 'TextBox',
   props: {
     endpoint_name: {
       type: String,
       required: true
-  },
-  editable_box: {
+    },
+    editable_box: {
       type: Boolean,
       default: true
-  }
+    }
   },
   data: function () {
     return {
       textBoxInput: '',
-      endpointName: this.endpoint_name,
-      //editable: this.editable_box
+      endpointName: this.endpoint_name
+      // editable: this.editable_box
     }
   },
-  /*computed: {
+  /* computed: {
    editable: function(){
        return this.editable_box
    }
-  },*/
+  }, */
   methods: {
     performSearchQuery: function (queryString, callbackFunction) {
       console.log('search query is', queryString)

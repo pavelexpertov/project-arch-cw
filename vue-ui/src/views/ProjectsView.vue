@@ -8,7 +8,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import {loggedOutMixin} from '@/user_session'
 import ProjectsList from '@/components/ProjectsList'
 
@@ -21,23 +20,23 @@ export default {
     }
   },
   methods: {
-      getProjectsFromServer: function () {
-        let userId = this.$store.state.user_id
-        this.$http.get('users/' + userId + '/projects/')
+    getProjectsFromServer: function () {
+      let userId = this.$store.state.user_id
+      this.$http.get('users/' + userId + '/projects/')
         .then(response => {
           console.log(response)
           this.ownProjects = response.body.own_projects
           this.sharedProjects = response.body.shared_projects
         })
         .catch(err => console.log(err))
-      }
+    }
   },
   mounted: function () {
-      this.getProjectsFromServer()
+    this.getProjectsFromServer()
   },
   mixins: [loggedOutMixin],
   components: {
-      projectsList: ProjectsList
+    projectsList: ProjectsList
   }
 }
 </script>

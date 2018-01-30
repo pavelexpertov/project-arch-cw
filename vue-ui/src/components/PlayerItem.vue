@@ -8,17 +8,16 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
   name: 'PlayerItem',
   props: {
     player_obj: {
       type: Object
-  },
-  editable: {
+    },
+    editable: {
       type: Boolean,
       default: true
-  }
+    }
   },
   data: function () {
     return {

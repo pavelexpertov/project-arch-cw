@@ -85,7 +85,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import ToDoItem from '@/components/ToDoItem'
 import * as moment from 'moment'
 
@@ -95,14 +94,14 @@ export default {
     todo_list_id: {
       type: String,
       required: true
-  },
+    },
     users_list_id: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     editable_list: {
-        type: Boolean,
-        default: true
+      type: Boolean,
+      default: true
     }
   },
   data: function () {
@@ -122,11 +121,12 @@ export default {
       let date = moment().add(1, 'd')
       date = date.format('YYYY-MM-DD')
       let title = this.todoTextBox
-      //Return if the text box was empty
-      if(title === '') return
+      // Return if the text box was empty
+      if (title === '') return
       this.todoTextBox = ''
       let completed = false
       let id = '' + Math.random()
+      // eslint-disable-next-line
       let new_todo_item = {
         title: title,
         id: id,
@@ -135,8 +135,7 @@ export default {
         user_id: ''
       }
       this.todoListOriginal.push(new_todo_item)
-      if(this.selectedFilter !== 'all')
-          this.todoList.push(new_todo_item)
+      if (this.selectedFilter !== 'all') { this.todoList.push(new_todo_item) }
       this.uploadToDoList()
     },
     uploadToDoList: function () {
@@ -151,60 +150,59 @@ export default {
       newArray = this.todoList.filter(item => item !== itemToDelete)
       this.todoList = newArray
       this.uploadToDoList()
-  },
-  handleSelectedFilter: function(){
-      if(this.selectedFilter === 'all')
-        this.todoList = this.todoListOriginal
-      else {
-          let new_list = this.todoListOriginal.filter(todo => todo.user_id === this.selectedFilter)
-          this.todoList = new_list
+    },
+    handleSelectedFilter: function () {
+    // eslint-disable-next-line
+      if (this.selectedFilter === 'all') { this.todoList = this.todoListOriginal } else {
+        // eslint-disable-next-line
+        let new_list = this.todoListOriginal.filter(todo => todo.user_id === this.selectedFilter)
+        // eslint-disable-next-line
+        this.todoList = new_list
       }
-  }
+    }
   },
   components: {
     toDoItem: ToDoItem
   },
   mounted: function () {
-    //Getting a list of users_list and todo list
+    // Getting a list of users_list and todo list
     this.$http.get('users_list/' + this.usersListId)
     .then(response => {
-        let usersList = response.body.users_list
-        //Add an empty option for None
-        usersList.splice(0, 0, {_id: '', fullname: "None"})
-        this.usersList = usersList
-        //Clone the list and then add an option for all
-        let dropdownUsersList = JSON.parse(JSON.stringify(usersList))
-        dropdownUsersList.splice(0, 0, {_id: 'all', fullname: "All"})
-        this.usersListDropDownList = dropdownUsersList
-        return this.$http.get('todo_list/' + this.todoListId)
+      let usersList = response.body.users_list
+        // Add an empty option for None
+      usersList.splice(0, 0, {_id: '', fullname: 'None'})
+      this.usersList = usersList
+        // Clone the list and then add an option for all
+      let dropdownUsersList = JSON.parse(JSON.stringify(usersList))
+      dropdownUsersList.splice(0, 0, {_id: 'all', fullname: 'All'})
+      this.usersListDropDownList = dropdownUsersList
+      return this.$http.get('todo_list/' + this.todoListId)
     })
     .then(response => {
       let list = response.body.todo_list
-      //Filtering the todos against the users list to make sure that they are not assigned to them.
+      // Filtering the todos against the users list to make sure that they are not assigned to them.
       let length = list.length
-      //For each to do item
-      for(var i = 0; i < length; ++i){
-          let todoItem = list[i]
-          let length = this.usersList.length
-          let userExistsInUsersListFlag = false
-          //For each user in the users list
-          for(var j = 0; j < length; ++j){
-             let user = this.usersList[j]
-             if(user._id === todoItem.user_id){
-                 userExistsInUsersListFlag = true
-                 break
-             }
+      // For each to do item
+      for (var i = 0; i < length; ++i) {
+        let todoItem = list[i]
+        let length = this.usersList.length
+        let userExistsInUsersListFlag = false
+          // For each user in the users list
+        for (var j = 0; j < length; ++j) {
+          let user = this.usersList[j]
+          if (user._id === todoItem.user_id) {
+            userExistsInUsersListFlag = true
+            break
           }
-          //If the user doesn't exist in the list
-          if(!userExistsInUsersListFlag)
-            todoItem.user_id = ''
+        }
+          // If the user doesn't exist in the list
+        if (!userExistsInUsersListFlag) { todoItem.user_id = '' }
       }
       this.todoList = list
       this.todoListOriginal = list
       this.uploadToDoList()
     })
     .catch(err => console.log(err))
-
   }
 }
 </script>
