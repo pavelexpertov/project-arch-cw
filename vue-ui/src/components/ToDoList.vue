@@ -126,22 +126,28 @@ export default {
       this.todoTextBox = ''
       let completed = false
       let id = '' + Math.random()
-      this.todoList.push({
+      let new_todo_item = {
         title: title,
         id: id,
         date: date,
-        completed: completed
-      })
+        completed: completed,
+        user_id: ''
+      }
+      this.todoListOriginal.push(new_todo_item)
+      if(this.selectedFilter !== 'all')
+          this.todoList.push(new_todo_item)
       this.uploadToDoList()
     },
     uploadToDoList: function () {
-      let todoList = this.todoList
+      let todoList = this.todoListOriginal
       this.$http.put('todo_list/' + this.todoListId, todoList)
             .then(response => console.log(response))
             .catch(err => console.log(err))
     },
     deleteItem: function (itemToDelete) {
-      let newArray = this.todoList.filter(item => item !== itemToDelete)
+      let newArray = this.todoListOriginal.filter(item => item !== itemToDelete)
+      this.todoListOriginal = newArray
+      newArray = this.todoList.filter(item => item !== itemToDelete)
       this.todoList = newArray
       this.uploadToDoList()
   },

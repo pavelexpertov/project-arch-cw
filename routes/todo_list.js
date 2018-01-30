@@ -27,7 +27,7 @@ let todo_schema = {
             completed: { type: "boolean" },
             id: { type: "string", minLength: 1 },
             date: { type: "string", minLength: 1 },
-            user_id: { type: "string", minLength: 1 }
+            user_id: { type: "string" }
         },
         additionalProperties: false,
         required: ['title', 'completed', 'id', 'date', 'user_id']
