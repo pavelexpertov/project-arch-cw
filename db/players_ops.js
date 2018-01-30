@@ -90,6 +90,7 @@ function updatePlayerListByPlayerListIdQ(players_list_id, players_list){
             return collection.findOneAndUpdate(search_query, update_query);
         })
         .then(result => {
+            if(result.value === null) reject({code: 404, message: "Player list of " + players_list_id.toHexString() + " is not found"})
             resolve({ok: true, message: "succesfully updated"});
         })
         .catch(err => reject(err))

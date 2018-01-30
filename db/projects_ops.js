@@ -108,6 +108,7 @@ function updateProjectByProjectIdQ(project_id, project){
             return collection.findOneAndUpdate(search_query, update_query);
         })
         .then(result => {
+            if(result.value === null) reject({code: 404, message: "The project doc of " + project_id.toHexString() + " does not exist"})
             resolve({ok: true, message: "Successfully updated the project"});
         })
         .catch(err => reject(err))
@@ -132,6 +133,7 @@ function deleteProjectByProjectId(project_id){
             return collection.findOne(search_query);
         })
         .then(project => {
+            if(project === null) reject({code: 404, message: "The project of " + project_id.toHexString() + " is not found"})
             todo_list_id = project.todo_list_id;
             userswithrights_list_id = project.userswithrights_list_id;
             players_list_id = project.players_list_id

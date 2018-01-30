@@ -119,6 +119,7 @@ function updateUserAccountByUserId(user_id, user_doc){
             return collection.findOneAndUpdate(search_query, update_query);
         })
         .then(result => {
+            if(result.value === null) reject({code: 404, message: "User with id of " + user_id.toHexString() + " is not found"})
             resolve({ok: true, message: "Updated user account successfully"});
         })
         .catch(err => reject(err))

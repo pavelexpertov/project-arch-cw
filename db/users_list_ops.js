@@ -18,7 +18,7 @@ function getUsersListByListIdQ(list_id){
             return collection.findOne(search_query);
         })
         .then(resultDoc => {
-            if(resultDoc === null) reject({code: 404, message: "To do list couldn't not be found with this id of " + list_id.str})
+            if(resultDoc === null) reject({code: 404, message: "To do list couldn't not be found with this id of " + list_id.toHexString()})
             result_doc = resultDoc;
             let users_list = result_doc.users_list;
             let id_list = [];
@@ -68,6 +68,7 @@ function updateUsersListByListIdQ(list_id, list){
             return collection.findOneAndUpdate(search_query, update_query);
         })
         .then(result => {
+            if(result.value === null) reject({code: 404, message: "users list of " + list_id.toHexString() + " is not found"})
             resolve({ok: true, message: "the to do list is successfully updated"});
         })
         .catch(err => reject(err))
