@@ -20,3 +20,26 @@ mongorestore -d tripdb mongo_backup/initial_backup/tripdb
 npm start
 ```
 You should be able to access the site on `http://localhost:3000` by clicking [here](http://localhost:3000)
+
+## Links to libraries and frameworks
+### Front-end
+[Vue framework](https://vuejs.org/)
+
+[vue-router - a router library](https://router.vuejs.org/en/)
+
+[vuex - a state management pattern and library](https://vuex.vuejs.org/en/intro.html)
+
+[Element - a desktop UI Library](http://element.eleme.io/#/en-US)
+
+[moment.js - a library for manipulating time formats](http://momentjs.com/)
+
+[vue-resouce - a library to perform http requests inside vue](https://github.com/pagekit/vue-resource)
+
+### Back-end
+[jsonschema - a libary to validate JSON schema](https://www.npmjs.com/package/jsonschema)
+
+[mocha - a framework for writing tests](https://mochajs.org/)
+
+[chai - an assert library](http://chaijs.com/)
+
+[Q - a library for making promises for nodejs](http://documentup.com/kriskowal/q/)
