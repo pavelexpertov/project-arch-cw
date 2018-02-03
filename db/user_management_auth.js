@@ -48,7 +48,11 @@ function signUpUserQ(username, password, fullname, job_role){
             return collection.findOne(search_query);
         })
         .then(existing_user => {
-            if(existing_user !== null) reject({err: 403, message: "the username already exists"}) 
+            if(existing_user !== null)
+            {
+                reject({err: 403, message: "the username already exists"})
+                return;
+            }
 
             user_collection = that_client.collection(collection_name);
             let insertObject = {'username': username, 'password': password, 'fullname': fullname, 'job_role': job_role};

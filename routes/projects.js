@@ -16,7 +16,7 @@ let project_put_schema = {
     type: 'object',
     properties: {
         project_title: { type: "string", minLength: 1 },
-        main_description: { type: "string", minLength: 1 },
+        main_description: { type: "string" },
         opposition_team: { type: "string", minLength: 1 },
         match_start_date: { type: "string", minLength: 1 },
         trip_start_date: { type: "string", minLength: 1 },

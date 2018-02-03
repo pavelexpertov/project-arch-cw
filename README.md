@@ -13,6 +13,7 @@ npm run build
 cd ..
 # Open a new tab in your terminal (so you *might* end up in the same
 # directory project root) to set up mongo
+mkdir data
 mongod --dbpath=data
 # Then restore the data to the database
 mongorestore -d tripdb mongo_backup/initial_backup/tripdb
