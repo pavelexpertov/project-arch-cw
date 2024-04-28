@@ -1,0 +1,18 @@
+services:
+  node_app:
+    image: sports_node_app
+    ports:
+      - "3000:3000"
+    networks:
+      - front-end
+      - back-end
+  mydb:
+    image: loaded_mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - back-end
+
+networks:
+  front-end: {}
+  back-end: {}
