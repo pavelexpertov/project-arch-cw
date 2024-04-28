@@ -1,0 +1,25 @@
+services:
+  node_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - front-end
+      - back-end
+  mydb:
+    image: mongo:3.6.2
+    networks:
+      - back-end
+  restore_db:
+    image: mongo:3.6.2
+    command: "mongorestore -h mydb -d tripdb /mongo_backup/initial_backup/tripdb"
+    volumes:
+      - ./mongo_backup:/mongo_backup
+    networks:
+      - back-end
+
+networks:
+  front-end: {}
+  back-end: {}
