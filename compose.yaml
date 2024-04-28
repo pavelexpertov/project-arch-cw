@@ -13,6 +13,7 @@ services:
   restore_db:
     image: mongo:3.6.2
     command: "mongorestore -h mydb -d tripdb /mongo_backup/initial_backup/tripdb"
+    restart: on-failure
     volumes:
       - ./mongo_backup:/mongo_backup
     networks:
