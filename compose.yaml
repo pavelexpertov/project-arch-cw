@@ -8,8 +8,6 @@ services:
       - back-end
   mydb:
     image: loaded_mongodb
-    ports:
-      - "27017:27017"
     networks:
       - back-end
 
