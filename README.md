@@ -2,7 +2,10 @@
 * Node version: 8.9.4
 * mongodb version: 3.6.2
 
-## Quick setup
+## Run it via Vagrant
+Follow [installation instructions](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-index#prerequisites) for Vagrant and then run `vagrant up` inside the root of the project (it will take approximately 5 mins to set it all up). Then go to http://localhost:3000 to access login page.
+
+## Quick Local Setup
 ```
 # Start to be in a project root directory to install node dependencies
 npm install
