@@ -5,9 +5,9 @@ var mongodb = require('mongodb');
 const db_name = "tripdb";
 
 if (process.env.DB_TARGET)
-    const url = 'mongodb://' + process.env.DB_TARGET + ':27017'
+    var url = 'mongodb://' + process.env.DB_TARGET + ':27017'
 else
-    const url = 'mongodb://127.0.0.1:27017';
+    var url = 'mongodb://127.0.0.1:27017';
 
 function getConnectedMongoClientQ(){
     return Q.Promise(function(resolve, reject){
