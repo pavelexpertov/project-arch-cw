@@ -1,17 +1,17 @@
 services:
   node_app:
-    image: sports_node_app
+    image: pavelexpertov/project-arch-cw:sports_node_app
     ports:
       - "3000:3000"
     networks:
       - front-end
       - back-end
   mydb:
-    image: loaded_mongodb
+    image: pavelexpertov/project-arch-cw:tripdb
     networks:
       - back-end
   restore_db:
-    image: mongo:3.6.2
+    image: pavelexpertov/project-arch-cw:tripdb
     command: "mongorestore -h mydb -d tripdb /mongo_backup/initial_backup/tripdb"
     restart: on-failure
     volumes:
